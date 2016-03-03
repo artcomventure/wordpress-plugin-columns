@@ -1,0 +1,243 @@
+( function( $, undefined ) {
+
+    tinymce.PluginManager.add( 'columns', function( editor ) {
+        editor.addButton( 'columns', {
+            type: 'panelbutton',
+            tooltip: editor.editorManager.i18n.translate( 'Columns' ),
+            icon: 'columns',
+            panel: {
+                role: 'application',
+                html: renderColumnsPanel,
+
+                onclick: function( e ) {
+                    var $columnSet = $( editor.dom.getParent( editor.selection.getNode(), '.columns' )),
+                        aColumns = $( 'div.column', $columnSet), iColumns,
+                        content = [], sInsert = '', i,
+                        isLiquid = $( '#liquid-text' ).is(':checked'),
+                        // insert, replace or refresh
+                        action = 'insert',
+
+                        // current cursor range
+                        range = editor.selection.getRng();
+
+                    // some empty not text node
+                    if ( range.startContainer.nodeType != 3 && !range.startContainer.textContent ) {
+                        // get column
+                        var column = editor.dom.getParent( range.startContainer.parentNode, '.column' );
+
+                        // clear column
+                        while ( column.firstChild ) {
+                            column.removeChild( column.firstChild );
+                        }
+
+                        // insert empty paragraph
+                        var paragraph = document.createElement( 'p' );
+                        paragraph.appendChild( document.createTextNode( '\u00A0' ) );
+                        column.appendChild( paragraph );
+
+                        range.setStart( column.firstChild, 1 );
+                    }
+
+                    // save for later use
+                    var rangeStartOffset = range.startOffset,
+                        rangeEndOffset = range.endOffset;
+
+                    // replace or refresh
+                    if ( $columnSet.length ) {
+                        action = 'replace';
+                        // maybe 'refresh' ... but this is decided later
+
+                        if ( aColumns.length ) {
+                            // insert text node marker for setting the cursor after action
+                            range.startContainer.nodeValue = '[range-start-container]' + range.startContainer.nodeValue;
+                            range.endContainer.nodeValue += '[range-end-container]';
+
+                            // collect content
+                            for ( i = 0; i < aColumns.length; i++ ) {
+                                content.push( aColumns[i].innerHTML.trim() );
+                            }
+                        }
+                        // is liquid
+                        else content = [$columnSet[0].innerHTML.trim()];
+                    }
+                    // insert
+                    else {
+                        content = [tinyMCE.activeEditor.selection.getContent()];
+                        if ( content[0] ) content[0] = '<p>' + content[0] + '</p>';
+                    }
+
+                    // number of columns
+                    if ( isNumeric( e ) || e == 'narrow-wide' || e == 'wide-narrow' ) {
+                        iColumns = e;
+                        action = 'refresh';
+                    }
+                    else iColumns = $( e.target ).closest( 'td' ).data( 'columns' );
+
+                    if ( iColumns == undefined ) e.stopPropagation();
+                    else {
+                        // remove
+                        if ( iColumns === 1 ) sInsert = content.join( '' );
+                        // columns
+                        else {
+                            if ( !isNumeric( iColumns ) ) {
+                                var widths = iColumns.split( '-' );
+                                iColumns = widths.length;
+                            }
+
+                            sInsert = '<div class="columns columns-' + iColumns + ( isLiquid ? ' columns-liquid' : '' ) + '" data-columns="' + iColumns + '">';
+
+                            for ( i = 0; i < iColumns; i++ ) {
+                                // for more 'content' then columns
+                                // put rest in last column
+                                if ( i == iColumns - 1 ) content[i] = content.slice(i).join( '' );
+
+                                if ( !isLiquid ) {
+                                    sInsert += '<div class="column column-' + (i+1) + ( widths ? ' column-' + widths[i] : '' ) + '">';
+                                }
+
+                                sInsert += ( content[i] || '<p>' + editor.editorManager.i18n.translate( 'Column' ) + ' ' + (i+1) + '</p>' );
+
+                                if ( !isLiquid ) sInsert += '</div>'; // column
+                            }
+
+                            sInsert += '</div>'; // columns
+                        }
+
+                        // close panel
+                        if ( action != 'refresh' ) this.hide();
+
+                        // replace vs. insert
+                        var $insert = $( sInsert ),
+                            startContainer = null,
+                            endContainer = null;
+
+                        if ( $columnSet.length ) {
+                            $columnSet.replaceWith( $insert );
+
+                            // ...
+                            ( function findRangeContainers( node ) {
+                                if ( !node ) return;
+
+                                node = node.firstChild;
+
+                                while ( node && ( !startContainer || !endContainer ) ) {
+                                    // is text node
+                                    if ( node.nodeType == 3 ) {
+                                        if ( node.nodeValue.match( new RegExp( '^\\[range-start-container\\]' ) ) ) {
+                                            node.nodeValue = node.nodeValue.replace( '[range-start-container]', '' );
+                                            startContainer = node;
+                                        }
+
+                                        if ( node.nodeValue.match( new RegExp( '\\[range-end-container\\]$' ) ) ) {
+                                            node.nodeValue = node.nodeValue.replace( '[range-end-container]', '' );
+                                            endContainer = node;
+                                        }
+                                    }
+                                    else if (node.nodeType == 1) findRangeContainers( node );
+
+                                    node = node.nextSibling;
+                                }
+                            } )( $insert[0] );
+
+                            if ( startContainer && endContainer ) {
+                                range.setStart( startContainer, rangeStartOffset );
+                                range.setEnd( endContainer, rangeEndOffset );
+
+                                editor.selection.setRng( range );
+                            }
+                        }
+                        else editor.insertContent( sInsert );
+                    }
+                }
+            },
+
+            onPostRender: function() {
+                var columnsButton = this,
+                    events = ['nodechange', 'click', 'show'];
+
+                editor.on( 'init', function() {
+                    var body = editor.dom.getParent( editor.selection.getNode(), 'body');
+
+                    $( body ).on( 'mouseenter mouseleave', 'div.columns', function( e ) {
+                        var $columnset = $( e.target );
+                        if ( !$columnset.is( '.columns' ) ) $columnset = $columnset.closest( 'div.columns' );
+
+                        if (e.type == 'mouseleave' ) $columnset.find( 'span.add-paragraph' ).remove();
+                        else {
+                            var $addParagraph = $( '<span class="add-paragraph" />');
+                            $addParagraph.attr( 'title', editor.editorManager.i18n.translate( 'Add paragraph' ) )
+                                .on( 'click', function() {
+                                    // add paragraph before
+                                    if ( $( this ).is( ':first-child' ) ) $columnset.before( '<p>&nbsp;</p>' );
+                                    // add paragraph after
+                                    else $columnset.after( '<p>&nbsp;</p>' );
+                                } );
+
+                            $columnset.prepend( $addParagraph ).append( $addParagraph.clone( true ) );
+                        }
+                    } );
+                } );
+
+                for ( var i = 0; i < events.length; i++ ) {
+                    editor.on( events[i], function( e ) {
+                        var body = editor.dom.getParent( editor.selection.getNode(), 'body');
+
+                        // reset
+                        $( 'div.columns', $( body ) ).removeClass( 'active' );
+
+                        // get current columnset
+                        var columns = editor.dom.getParent( editor.selection.getNode(), '.columns' );
+                        columnsButton.active( !!columns );
+
+                        if ( !columns ) return;
+
+                        var $columns = $( columns );
+
+                        $columns.addClass( 'active' );
+
+                        // refresh
+                        if ( e.type == 'click' ) {
+                            var $firstColumn = $columns.find( 'div.column:first-of-type' );
+
+                            // get current columns
+                            if ( $firstColumn.hasClass( 'column-wide' ) ) columns = 'wide-narrow';
+                            else if ( $firstColumn.hasClass( 'column-narrow' ) ) columns = 'narrow-wide';
+                            else columns = $columns.data( 'columns' );
+
+                            editor.buttons.columns.panel.onclick( columns );
+                        }
+                    } );
+                }
+            }
+        } );
+
+        function isNumeric( value ) {
+            return !isNaN( parseFloat( value ) ) && isFinite( value );
+        }
+
+        function renderColumnsPanel() {
+            var html = '<table class="mce-grid mce-grid-border mce-columns-grid"><tbody>';
+
+            // liquid text
+            html += '<tr style="display:none;"><td colspan="10"><input id="liquid-text" type="checkbox" /><label for="liquid-text">Liquid Text</label></td></tr>';
+
+            // free select
+            html += '<tr>';
+            for ( var i = 1; i < 10; i++ ) {
+                html += '<td data-columns="' + i + '"><span>' + ( i > 1 ? i : '&times;' ) + '</span></td>';
+            }
+            html += '</tr>';
+
+            // narrow - wide
+            html += '<tr><td data-columns="narrow-wide" colspan="3"><span>1/3</span></td><td data-columns="narrow-wide" colspan="6"><span>2/3</span></td></tr>';
+
+            // narrow - wide
+            html += '<tr><td data-columns="wide-narrow" colspan="6"><span>2/3</span></td><td data-columns="wide-narrow" colspan="3"><span>1/3</span></td></tr>';
+
+            html += '</tbody></table>';
+
+            return html
+        }
+    } );
+
+} )( jQuery );

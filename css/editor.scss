@@ -1,0 +1,112 @@
+i {
+  &.mce-i-columns {
+    font: 400 20px/1 dashicons;
+    vertical-align: top;
+    font-smoothing: grayscale;
+  }
+
+  &.mce-i-columns {
+    &:before,
+    &:after {
+      content: "\f333";
+      display: block;
+      width: 11px;
+      overflow: hidden;
+      float: left;
+      margin: 1px 0 0 -2px;
+    }
+
+    &:after {
+      margin-left: -1px;
+    }
+  }
+}
+
+table.mce-columns-grid {
+  margin: 4px;
+  border-collapse: collapse;
+
+  tr {
+    $dimension: 15px;
+
+    td {
+      label,
+      span {
+        display: block;
+        font-size: 0.625rem;
+        line-height: $dimension;
+      }
+
+      input[type="checkbox"] + label:before,
+      span {
+        min-width: $dimension;
+        height: $dimension;
+        text-align: center;
+        border: 1px solid #D6D6D6;
+        color: #D6D6D6;
+        cursor: pointer;
+        background-color: #fff;
+        margin: 1px;
+      }
+    }
+
+    // liquid text
+    &:first-child input[type="checkbox"] {
+      display: none;
+
+      + label {
+        &:before {
+          width: $dimension;
+          cursor: pointer;
+          content: "";
+          font-family: dashicons;
+          float: left;
+          margin: 0 4px 0 1px;
+          font-size: 1rem;
+        }
+
+        border-bottom: 1px dotted #D6D6D6;
+        display: block;
+        padding: 1px 0 5px;
+        margin-bottom: 2px;
+      }
+
+      &:checked + label {
+        &:before {
+          color: #25aa48;
+          border-color: #25aa48;
+          content: "\f147";
+        }
+      }
+    }
+
+    &:nth-child(2) td:first-child span {
+      border-color: #a00 !important;
+      color: #a00 !important;
+    }
+
+    &:hover {
+      td span {
+        background-color: #C8DEF4;
+        color: #000;
+        border-color: #a1a1a1;
+      }
+
+      &:nth-child(2) td {
+        &:hover ~ td,
+        &:first-child {
+          span {
+            background-color: #fff;
+            color: #D6D6D6;
+            border-color: #D6D6D6;
+          }
+        }
+
+        &:first-child span:hover {
+          color: #fff !important;
+          background: #a00;
+        }
+      }
+    }
+  }
+}

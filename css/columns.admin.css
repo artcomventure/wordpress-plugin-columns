@@ -1,0 +1,67 @@
+@charset "UTF-8";
+.columns {
+    position: relative;
+}
+
+.columns:before {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    content: "";
+    pointer-events: none;
+    opacity: .1; 
+    border: 1px dotted;
+}
+
+.columns.active,
+.columns:hover {
+    background-color: #f7f7f7;
+}
+
+.columns.active:before,
+.columns:hover:before {
+    opacity: 1;
+}
+
+.columns .column:hover {
+    background: rgba(0, 0, 0, .05);
+}
+
+.columns .add-paragraph {
+    font-size: .8em;
+    line-height: 1.5em;
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    width: 1.5em;
+    height: 1.5em;
+    cursor: pointer;
+    text-align: center;
+    border: 1px dotted; 
+    border-radius: 2px;
+    background-color: #fff;
+}
+
+.columns .add-paragraph:before {
+    position: relative;
+    content: "¶";
+}
+
+.columns .add-paragraph:first-child {
+    top: 0;
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+}
+
+.columns .add-paragraph:last-child {
+    bottom: 0;
+    -webkit-transform: translate(-50%, 50%);
+        -ms-transform: translate(-50%, 50%);
+            transform: translate(-50%, 50%);
+}
+
+/*# sourceMappingURL=columns.admin.css.map */
