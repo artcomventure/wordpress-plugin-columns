@@ -4,12 +4,6 @@
     display:         flex;
     min-width: 100%;
     margin: 1em -1em;
-    -webkit-flex-grow: 1;
-    -ms-flex-positive: 1;
-            flex-grow: 1;
-    -webkit-align-items: flex-start;
-    -ms-flex-align: start;
-            align-items: flex-start;
 }
 
 .columns.columns-liquid {
