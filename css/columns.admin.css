@@ -12,16 +12,14 @@
     left: 0;
     content: "";
     pointer-events: none;
-    opacity: .1; 
+    opacity: .2; 
     border: 1px dotted;
 }
 
-.columns.active,
 .columns:hover {
     background-color: #f7f7f7;
 }
 
-.columns.active:before,
 .columns:hover:before {
     opacity: 1;
 }

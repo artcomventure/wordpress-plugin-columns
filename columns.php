@@ -4,7 +4,7 @@
  * Plugin Name: Columns
  * Plugin URI: https://github.com/artcomventure/wordpress-plugin-columns
  * Description: Extends WP Editor with columns.
- * Version: 1.1.2
+ * Version: 1.1.3
  * Author: artcom venture GmbH
  * Author URI: http://www.artcom-venture.de/
  */

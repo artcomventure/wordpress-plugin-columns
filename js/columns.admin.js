@@ -200,7 +200,7 @@
                         var body = editor.dom.getParent( editor.selection.getNode(), 'body');
 
                         // reset
-                        $( 'div.columns', $( body ) ).removeClass( 'active' );
+                        //$( 'div.columns', $( body ) ).removeClass( 'active' );
 
                         // get current columnset
                         var columns = editor.dom.getParent( editor.selection.getNode(), '.columns' );
@@ -211,7 +211,7 @@
 
                         var $columns = $( columns );
 
-                        $columns.addClass( 'active' );
+                        //$columns.addClass( 'active' );
 
                         // refresh (on every columns click)
                         if ( e.type == 'click' ) {

@@ -11,10 +11,9 @@
     left: 0;
     pointer-events: none;
     border: 1px dotted;
-    opacity: .1;
+    opacity: .2;
   }
 
-  &.active,
   &:hover {
     background-color: #f7f7f7;
 
