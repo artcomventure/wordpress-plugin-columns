@@ -4,7 +4,7 @@
  * Plugin Name: Columns
  * Plugin URI: https://github.com/artcomventure/wordpress-plugin-columns
  * Description: Extends WP Editor with columns.
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: artcom venture GmbH
  * Author URI: http://www.artcom-venture.de/
  */
@@ -68,4 +68,26 @@ function columns__mce_buttons( $buttons ) {
 	array_unshift( $buttons, 'columns' );
 
 	return $buttons;
+}
+
+/**
+ * i18n.
+ */
+add_action( 'after_setup_theme', 'columns__after_setup_theme' );
+function columns__after_setup_theme() {
+  load_theme_textdomain( 'columns', WP_PLUGIN_DIR . '/columns/languages' );
+}
+
+/**
+ * MCE translation.
+ *
+ * @param array $locales
+ *
+ * @return array
+ */
+add_filter( 'mce_external_languages', 'columns__mce_external_languages' );
+function columns__mce_external_languages( $locales ) {
+  $locales['columns'] = plugin_dir_path( __FILE__ ) . 'languages/mce.php';
+
+  return $locales;
 }
