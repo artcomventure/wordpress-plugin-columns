@@ -1,3 +1,63 @@
+.columns {
+  position: relative;
+
+  &:before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    border: 1px dotted;
+    opacity: .2;
+  }
+
+  &.active,
+  &:hover {
+    background-color: #f7f7f7;
+
+    &:before {
+      opacity: 1;
+    }
+  }
+
+  .column:hover {
+    background: rgba(#000,.05);
+  }
+
+  .add-paragraph {
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    font-size: .8em;
+    width: 1.5em;
+    height: 1.5em;
+    line-height: 1.5em;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 2px;
+    cursor: pointer;
+    border: 1px dotted;
+
+    &:before {
+      position: relative;
+      content: "¶";
+    }
+
+    &:first-child {
+      top: 0;
+      transform: translate(-50%,-50%);
+    }
+
+    &:last-child {
+      bottom: 0;
+      transform: translate(-50%,50%);
+    }
+  }
+}
+
 i {
   &.mce-i-columns {
     font: 400 20px/1 dashicons;

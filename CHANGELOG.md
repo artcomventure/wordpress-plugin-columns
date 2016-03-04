@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.2.0] - 2016-03-04 [YANKED]
+### Added
+- update notification from git
+
 ## [1.1.5] - 2016-03-04
 ### Added
 - CHANGELOG.md
