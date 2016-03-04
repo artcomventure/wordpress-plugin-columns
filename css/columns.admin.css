@@ -16,10 +16,12 @@
     border: 1px dotted;
 }
 
+.columns.active,
 .columns:hover {
     background-color: #f7f7f7;
 }
 
+.columns.active:before,
 .columns:hover:before {
     opacity: 1;
 }

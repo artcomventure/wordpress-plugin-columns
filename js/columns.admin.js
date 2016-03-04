@@ -22,8 +22,8 @@
                         // current cursor range
                         range = editor.selection.getRng();
 
-                    // in case of some empty not text-node
-                    if ( range.startContainer.nodeType != 3 && !range.startContainer.textContent ) {
+                    // on replace or refresh in case of some empty not text-node
+                    if ( $columnSet.length && range.startContainer.nodeType != 3 && !range.startContainer.textContent ) {
                         // get column
                         var column = editor.dom.getParent( range.startContainer.parentNode, '.column' );
 
@@ -200,7 +200,7 @@
                         var body = editor.dom.getParent( editor.selection.getNode(), 'body');
 
                         // reset
-                        //$( 'div.columns', $( body ) ).removeClass( 'active' );
+                        $( 'div.columns', $( body ) ).removeClass( 'active' );
 
                         // get current columnset
                         var columns = editor.dom.getParent( editor.selection.getNode(), '.columns' );
@@ -211,7 +211,7 @@
 
                         var $columns = $( columns );
 
-                        //$columns.addClass( 'active' );
+                        $columns.addClass( 'active' );
 
                         // refresh (on every columns click)
                         if ( e.type == 'click' ) {
