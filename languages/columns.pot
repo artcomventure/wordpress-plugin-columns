@@ -22,3 +22,6 @@ msgstr ""
 
 msgid "Add paragraph"
 msgstr ""
+
+msgid "There is a <a href=\"%1$s\" target=\"_blank\">new version (%2$s) of %3$s</a> available. To update go to terminal and use:<br /><code>$ cd %4$s</code><br /><code>$ git pull</code>"
+msgstr ""

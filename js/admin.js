@@ -3,19 +3,36 @@
     var $body = $( 'body.plugins-php' );
     if ( !$body.length ) return;
 
-    var $columns = $( '#columns.update' );
+    var $columns = $( '#columns' );
     if ( !$columns.length ) return;
 
     var $version = $( 'div.plugin-version-author-uri', $columns );
-    $version.html( $version.html().split( '|' ).slice(0,-1).join( '|' ) );
+    $( 'a:last-child', $version ).removeClass( 'thickbox' )
+        .attr( 'href', columnsData.URI )
+        .attr( 'target', '_blank' );
 
-    var $update_message = $( '#columns-update' );
-    $( 'div.update-message a', $update_message).each( function() {
-        var $link = $( this).off( 'click' );
+    // check for repo use
+    $.get( columnsData.pluginDir + '/.git/config' )
+        .done( updateMessage ).fail( updateMessage );
 
-        if ( $link.hasClass( 'update-link' ) )
-            $link.replaceWith( $link.clone().removeClass( 'update-link' ).attr( 'href', 'https://github.com/artcomventure/wordpress-plugin-columns/archive/master.zip' ) );
-        else $link.removeClass( 'thickbox' ).attr( 'href', 'https://github.com/artcomventure/wordpress-plugin-columns/blob/master/CHANGELOG.md').attr( 'target', '_blank' );
-    } );
+    function updateMessage( data ) {
+        var $update_message = $( '#columns-update').find( 'div.update-message' );
+
+        // done: git in use
+        if ( data.status == undefined ) {
+            $update_message.html( columnsT9n.update_message );
+        }
+        // fail: download files
+        else {
+            $( 'a', $update_message).each( function( i ) {
+                var $link = $( this ).attr( 'class', '' );
+
+                // update link
+                if ( i ) $link.replaceWith( $link.clone().attr( 'href', columnsData.masterZip ) );
+                // detail link
+                else $link.attr( 'href', columnsData.gitChangelog).attr( 'target', '_blank' );
+            } );
+        }
+    }
 
 } )( jQuery );

@@ -51,7 +51,7 @@
                         // maybe 'refresh' ... but this is decided later
 
                         if ( aColumns.length ) {
-                            // insert text node marker for re-set the cursor after 'action'
+                            // insert text node (range) marker for re-set the cursor after 'action'
                             range.startContainer.nodeValue = '[range-start-container]' + range.startContainer.nodeValue;
                             range.endContainer.nodeValue += '[range-end-container]';
 
@@ -70,7 +70,7 @@
                     }
 
                     // get number of columns
-                    if ( isNumeric( e ) || e == 'narrow-wide' || e == 'wide-narrow' ) {
+                    if ($.isNumeric( e ) || e == 'narrow-wide' || e == 'wide-narrow' ) {
                         iColumns = e;
                         action = 'refresh';
                     }
@@ -83,7 +83,7 @@
                         // columns
                         else {
                             // wide-narrow-wide
-                            if ( !isNumeric( iColumns ) ) {
+                            if ( !$.isNumeric( iColumns ) ) {
                                 var widths = iColumns.split( '-' );
                                 iColumns = widths.length;
                             }
@@ -112,16 +112,16 @@
                         // close panel
                         if ( action != 'refresh' ) this.hide();
 
-                        // replace vs. insert
                         var $insert = $( sInsert ),
                             startContainer = null,
                             endContainer = null;
 
+                        // replace/remove
                         if ( $columnSet.length ) {
                             $columnSet.replaceWith( $insert );
 
-                            // ...
-                            ( function findRangeContainers( node ) {
+                            // remove range marker
+                            function findRangeContainers( node ) {
                                 if ( !node ) return;
 
                                 node = node.firstChild;
@@ -143,8 +143,13 @@
 
                                     node = node.nextSibling;
                                 }
-                            } )( $insert[0] );
+                            }
 
+                            $insert.each( function() {
+                                findRangeContainers( this );
+                            } );
+
+                            // re-set range marker
                             if ( startContainer && endContainer ) {
                                 range.setStart( startContainer, rangeStartOffset );
                                 range.setEnd( endContainer, rangeEndOffset );
@@ -152,6 +157,7 @@
                                 editor.selection.setRng( range );
                             }
                         }
+                        // insert
                         else editor.insertContent( sInsert );
                     }
                 }
@@ -270,16 +276,6 @@
             html += '</tbody></table>';
 
             return html
-        }
-
-        /**
-         * Checks if 'value' is numeric.
-         *
-         * @param value
-         * @returns {boolean}
-         */
-        function isNumeric( value ) {
-            return !isNaN( parseFloat( value ) ) && isFinite( value );
         }
     } );
 

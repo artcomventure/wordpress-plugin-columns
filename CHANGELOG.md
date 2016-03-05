@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.2.1] - 2016-03-05
+### Changed
+- update notification text
+
+### Fixed
+- range marker bug on columns removal
+
 ## [1.2.0] - 2016-03-04 [YANKED]
 ### Added
 - update notification from git
