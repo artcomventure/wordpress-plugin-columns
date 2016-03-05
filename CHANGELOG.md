@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.2.2] - 2016-03-05
+### Changed
+- update check: always (but cache expired) use cached master version number
+
 ## [1.2.1] - 2016-03-05
 ### Changed
 - update notification text

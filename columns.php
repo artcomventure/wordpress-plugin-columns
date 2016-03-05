@@ -4,7 +4,7 @@
  * Plugin Name: Columns
  * Plugin URI: https://github.com/artcomventure/wordpress-plugin-columns
  * Description: Extends WP Editor with columns.
- * Version: 1.2.1
+ * Version: 1.2.2
  * Author: artcom venture GmbH
  * Author URI: http://www.artcom-venture.de/
  */
@@ -42,12 +42,15 @@ register_deactivation_hook( __FILE__, 'columns_versions' );
  * @return array|null
  */
 function columns_versions( $cache = TRUE ) {
-	// check versions: force, init or after one hour at the earliest
+	$plugin_data = get_plugin_data( __FILE__ );
+
+	// use cached data
 	if ( $cache && ( $versions = get_transient( 'columns_versions' ) ) && HOUR_IN_SECONDS > ( time() - $versions['last_checked'] ) ) {
+		// replace 'local' with current one (in case of update)
+		$versions['local'] = $plugin_data['Version'];
+
 		return $versions;
 	}
-
-	$plugin_data = get_plugin_data( __FILE__ );
 
 	$versions = array(
 		'local' => $plugin_data['Version'],
@@ -205,10 +208,8 @@ function columns__site_transient_update_plugins( $value ) {
 	}
 
 	if ( ! empty( $plugin ) ) {
-		global $pagenow;
-
 		// check versions
-		if ( $versions = columns_versions( $pagenow == 'plugins.php' ? FALSE : TRUE ) ) {
+		if ( $versions = columns_versions() ) {
 			// mark plugin for update
 			if ( version_compare( $versions['master'], $versions['local'], '>' ) ) {
 				$plugin->new_version = $versions['master'];
