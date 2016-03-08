@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.3.0 - 2016-03-07
+**Added**
+- Update plugin files directly from github.com via WordPress' plugin updater
+- style and script version number
+- code comments
+
+**Changed**
+- README.md
+
 ## 1.2.3 - 2016-03-07
 **Added**
 - README.md
