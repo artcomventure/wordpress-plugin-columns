@@ -1,6 +1,10 @@
 # Change Log
 
-## 1.3.0 - 2016-03-07
+## 1.3.1 - 2016-03-08
+**Fixed**
+- Non git update message
+
+## 1.3.0 - 2016-03-08
 **Added**
 - Update plugin files directly from github.com via WordPress' plugin updater
 - style and script version number

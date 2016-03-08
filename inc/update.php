@@ -18,10 +18,15 @@ function columns_update__admin_enqueue_scripts( $hook ) {
 	// admin js
 	wp_enqueue_script( 'columns-update', COLUMNS_PLUGIN_URL . 'js/update.min.js', array( 'jquery' ), '20160308' );
 
+	$changelog = esc_url( COLUMNS_GIT_CHANGELOG );
+	$update_link = wp_nonce_url( self_admin_url( 'update.php?action=upgrade-plugin&plugin=' ) . $file, 'upgrade-plugin_' . $file );
+
 	// localize columns-admin script
 	$translation_array = array(
-		'update_message' => sprintf( __( 'There is a <a href="%1$s" target="_blank">new version (%2$s) of %3$s</a> available. To update go to terminal and use:<pre><code>$ cd %4$s</code><br /><code>$ git pull</code></pre> ... or <a href="%5$s">update now</a> (you\'ll lose git functionality to pull changes).', 'columns' ),
-			COLUMNS_GIT_CHANGELOG, $versions['master'], $plugin_data['Name'], COLUMNS_PLUGIN_DIR . '/', wp_nonce_url( self_admin_url( 'update.php?action=upgrade-plugin&plugin=' ) . $file, 'upgrade-plugin_' . $file ) )
+		'update_message_git' => sprintf( __( 'There is a <a href="%1$s" target="_blank">new version (%2$s) of %3$s</a> available. To update go to terminal and use:<pre><code>$ cd %4$s</code><br /><code>$ git pull</code></pre> ... or <a href="%5$s" class="update-link">update now</a> (you\'ll lose git functionality to pull changes).', 'columns' ),
+			$changelog, $versions['master'], $plugin_data['Name'], COLUMNS_PLUGIN_DIR . '/', $update_link ),
+		'update_message_files' => sprintf( __( 'There is a new version of %1$s available. <a href="%2$s" target="_blank">View version %3$s details</a> or <a href="%4$s" class="update-link">update now</a>.', 'columns' ),
+			$plugin_data['Name'], $changelog, $versions['master'], $update_link )
 	);
 
 	// add translation to script

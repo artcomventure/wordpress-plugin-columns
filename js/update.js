@@ -17,23 +17,11 @@
         $.get( columnsData.pluginDir + '.git/config' )
             .done( updateMessage ).fail( updateMessage );
 
+        // update update message
         function updateMessage( data ) {
-            var $update_message = $( 'tr.plugin-update-tr[data-plugin="' + columnsData.pluginFile + '"]').find( 'div.update-message' );
-
-            // done: git in use
-            if ( data.status == undefined ) {
-                $update_message.html( columnsT9n.update_message );
-                //$( 'pre', $update_message).css( 'margin-bottom', 0 );
-            }
-            // fail: download files
-            else {
-                $( 'a', $update_message).each( function( i ) {
-                    var $link = $( this ).attr( 'class', '' );
-
-                    // detail link
-                    if ( !i ) $link.attr( 'href', columnsData.gitChangelog).attr( 'target', '_blank' );
-                } );
-            }
+            $( 'tr.plugin-update-tr[data-plugin="' + columnsData.pluginFile + '"]')
+                .find( 'div.update-message' )
+                .html( columnsT9n['update_message_' + ( !!data.status ? 'files' : 'git' )] );
         }
 
     } );
