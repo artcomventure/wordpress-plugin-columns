@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.3.2 - 2016-03-09
+**Changed**
+- Get master version: switch from curl to wp_remote_get()
+- Use WP's update message.
+
 ## 1.3.1 - 2016-03-08
 **Fixed**
 - Non git update message

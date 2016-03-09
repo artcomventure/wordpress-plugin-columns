@@ -10,36 +10,13 @@ function columns_update__admin_enqueue_scripts( $hook ) {
 		return;
 	}
 
-	$versions = columns_versions();
-	$plugin_data = get_plugin_data( COLUMNS_PLUGIN_FILE );
-
-	$file = plugin_basename( COLUMNS_PLUGIN_FILE );
-
 	// admin js
-	wp_enqueue_script( 'columns-update', COLUMNS_PLUGIN_URL . 'js/update.min.js', array( 'jquery' ), '20160308' );
-
-	$changelog = esc_url( COLUMNS_GIT_CHANGELOG );
-	$update_link = wp_nonce_url( self_admin_url( 'update.php?action=upgrade-plugin&plugin=' ) . $file, 'upgrade-plugin_' . $file );
-
-	// localize columns-admin script
-	$translation_array = array(
-		'update_message_git' => sprintf( __( 'There is a <a href="%1$s" target="_blank">new version (%2$s) of %3$s</a> available. To update go to terminal and use:<pre><code>$ cd %4$s</code><br /><code>$ git pull</code></pre> ... or <a href="%5$s" class="update-link">update now</a> (you\'ll lose git functionality to pull changes).', 'columns' ),
-			$changelog, $versions['master'], $plugin_data['Name'], COLUMNS_PLUGIN_DIR . '/', $update_link ),
-		'update_message_files' => sprintf( __( 'There is a new version of %1$s available. <a href="%2$s" target="_blank">View version %3$s details</a> or <a href="%4$s" class="update-link">update now</a>.', 'columns' ),
-			$plugin_data['Name'], $changelog, $versions['master'], $update_link )
-	);
-
-	// add translation to script
-	wp_localize_script( 'columns-update', 'columnsT9n', $translation_array );
+	wp_enqueue_script( 'columns-update', COLUMNS_PLUGIN_URL . 'js/update.min.js', array( 'jquery' ), '20160309' );
 
 	// data to columns-admin script
 	$data_array = array(
-		'id' => sanitize_title( $plugin_data['Name'] ),
-		'pluginDir' => str_replace( $_SERVER['DOCUMENT_ROOT'], '', plugin_dir_path( COLUMNS_PLUGIN_FILE ) ),
 		'pluginFile' => str_replace( WP_PLUGIN_DIR . '/', '', COLUMNS_PLUGIN_FILE ),
-		'gitChangelog' => COLUMNS_GIT_CHANGELOG,
-		'masterZip' => COLUMNS_MASTER_ZIP,
-		'URI' => COLUMNS_GIT_URI,
+		'gitURI' => COLUMNS_GIT_URI,
 	);
 
 	// add data to script
@@ -70,17 +47,15 @@ function columns_versions( $cache = TRUE ) {
 	);
 
 	// call git to check for master version
-	$ch = curl_init();
-	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, TRUE );
-	curl_setopt( $ch, CURLOPT_HTTPHEADER, array( 'Content-type: application/json' ) );
-	curl_setopt( $ch, CURLOPT_USERAGENT, COLUMNS_GIT_URI );
-	curl_setopt( $ch, CURLOPT_URL, 'https://raw.githubusercontent.com/artcomventure/wordpress-plugin-columns/master/columns.php' );
-	$versions['master'] = curl_exec( $ch );
-	curl_close( $ch );
+	$versions['master'] = wp_remote_get( 'https://raw.githubusercontent.com/artcomventure/wordpress-plugin-columns/master/columns.php' );
 
-	// grep masters version number
-	if ( preg_match( '/\* Version: (\d+\.\d+\.\d+)/', $versions['master'], $versions['master'] ) ) {
-		$versions['master'] = $versions['master'][1];
+	if ( ! is_wp_error( $versions['master'] ) ) {
+		// grep masters version number
+		if ( preg_match( '/\* Version: (\d+\.\d+\.\d+)/', $versions['master']['body'], $versions['master'] ) ) {
+			$versions['master'] = $versions['master'][1];
+		} else {
+			$versions['master'] = NULL;
+		}
 	} else {
 		$versions['master'] = NULL;
 	}
@@ -115,9 +90,12 @@ function columns__site_transient_update_plugins( $value ) {
 
 	// create plugin object
 	$plugin = (object) array(
+        'plugin' => $plugin_file,
 		// for now the current version number
 		// will be checked in next step
 		'new_version' => $value->checked[ $plugin_file ],
+        'url' => COLUMNS_GIT_URI,
+        'package' => COLUMNS_MASTER_ZIP,
 	);
 
 	// check versions
@@ -132,29 +110,6 @@ function columns__site_transient_update_plugins( $value ) {
 	}
 
 	return $value;
-}
-
-/**
- * @param $plugin
- */
-add_action( 'after_plugin_row', 'columns__after_plugin_row' );
-function columns__after_plugin_row( $plugin ) {
-}
-
-/**
- * Change download link to git master zip archive.
- *
- * @param array $options
- *
- * @return array
- */
-add_filter( 'upgrader_package_options', 'columns__upgrader_package_options' );
-function columns__upgrader_package_options( $options ) {
-	if ( WP_PLUGIN_DIR . '/' . $options['hook_extra']['plugin'] === COLUMNS_PLUGIN_FILE ) {
-		$options['package'] = COLUMNS_MASTER_ZIP;
-	}
-
-	return $options;
 }
 
 /**
