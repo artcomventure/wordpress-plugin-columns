@@ -1,9 +1,13 @@
 # Change Log
 
+## 1.4.0 - 2016-03-10
+**Removed**
+- Plugin update from GitHub. **Please use https://github.com/artcomventure/wordpress-plugin-repoUpdater for this!** 
+
 ## 1.3.2 - 2016-03-09
 **Changed**
 - Get master version: switch from curl to wp_remote_get()
-- Use WP's update message.
+- Use WP's update message
 
 ## 1.3.1 - 2016-03-08
 **Fixed**
@@ -60,4 +64,4 @@
 
 ## 1.0.0 - 2016-03-03
 **Added**
-- Init file commit
+- Inititial file commit

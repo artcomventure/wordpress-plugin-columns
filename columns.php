@@ -4,43 +4,22 @@
  * Plugin Name: Editor Columns
  * Plugin URI: https://github.com/artcomventure/wordpress-plugin-columns
  * Description: Extends HTML Editor with WYSIWYG columns.
- * Version: 1.3.2
+ * Version: 1.4.0
  * Text Domain: columns
  * Author: artcom venture GmbH
  * Author URI: http://www.artcom-venture.de/
  */
-
-if ( ! defined( 'COLUMNS_PLUGIN_FILE' ) ) {
-	define( 'COLUMNS_PLUGIN_FILE', __FILE__ );
-}
 
 if ( ! defined( 'COLUMNS_PLUGIN_URL' ) ) {
 	define( 'COLUMNS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 }
 
 if ( ! defined( 'COLUMNS_PLUGIN_DIR' ) ) {
-	define( 'COLUMNS_PLUGIN_DIR', dirname( __FILE__ ) );
-}
-
-if ( ! defined( 'COLUMNS_GIT_CHANGELOG' ) ) {
-	define( 'COLUMNS_GIT_CHANGELOG', 'https://github.com/artcomventure/wordpress-plugin-columns/blob/master/CHANGELOG.md' );
-}
-
-if ( ! defined( 'COLUMNS_MASTER_ZIP' ) ) {
-	define( 'COLUMNS_MASTER_ZIP', 'https://github.com/artcomventure/wordpress-plugin-columns/archive/master.zip' );
-}
-
-if ( ! defined( 'COLUMNS_GIT_URI' ) ) {
-	define( 'COLUMNS_GIT_URI', 'https://github.com/artcomventure/wordpress-plugin-columns' );
+	define( 'COLUMNS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 }
 
 /**
- * On activation check versions.
- */
-register_deactivation_hook( __FILE__, 'columns_versions' );
-
-/**
- * Admin.
+ * Enqueue admin and editor styles and scripts.
  */
 add_action( 'admin_head', 'columns__admin_head' );
 function columns__admin_head() {
@@ -57,7 +36,7 @@ function columns__admin_head() {
 	add_editor_style( plugins_url( '/css/editor.min.css?', __FILE__ ) );
 
 	// enqueue button style
-	wp_enqueue_style( 'columns-admin', plugins_url( '/css/editor.min.css', __FILE__ ), array(), '20160304' );
+	wp_enqueue_style( 'columns-admin', COLUMNS_PLUGIN_URL . 'css/editor.min.css', array(), '20160304' );
 
 	// add plugin js
 	add_filter( 'mce_external_plugins', 'columns__mce_external_plugins' );
@@ -70,7 +49,7 @@ function columns__admin_head() {
  */
 add_action( 'wp_enqueue_scripts', 'columns_enqueue_scripts' );
 function columns_enqueue_scripts() {
-	wp_enqueue_style( 'columns', plugins_url( '/css/columns.min.css', __FILE__ ), array(), '20160304' );
+	wp_enqueue_style( 'columns', COLUMNS_PLUGIN_URL . 'css/columns.min.css', array(), '20160304' );
 }
 
 /**
@@ -101,11 +80,11 @@ function columns__mce_buttons( $buttons ) {
 }
 
 /**
- * i18n.
+ * t9n.
  */
 add_action( 'after_setup_theme', 'columns__after_setup_theme' );
 function columns__after_setup_theme() {
-	load_theme_textdomain( 'columns', COLUMNS_PLUGIN_DIR . '/languages' );
+	load_theme_textdomain( 'columns', COLUMNS_PLUGIN_DIR . 'languages' );
 }
 
 /**
@@ -117,18 +96,21 @@ function columns__after_setup_theme() {
  */
 add_filter( 'mce_external_languages', 'columns__mce_external_languages' );
 function columns__mce_external_languages( $locales ) {
-	$locales['columns'] = plugin_dir_path( __FILE__ ) . 'languages/mce.php';
+	$locales['columns'] = COLUMNS_PLUGIN_DIR . 'languages/mce.php';
 
 	return $locales;
 }
 
-// update plugin directly from git
-include( COLUMNS_PLUGIN_DIR . '/inc/update.php' );
-
 /**
- * Delete traces on deactivation.
+ * Remove update notification (since this plugin isn't listed on https://wordpress.org/plugins/).
  */
-register_deactivation_hook( __FILE__, 'columns_deactivate' );
-function columns_deactivate() {
-	delete_transient( 'columns_versions' );
+add_filter( 'site_transient_update_plugins', 'columns__site_transient_update_plugins' );
+function columns__site_transient_update_plugins( $value ) {
+  $plugin_file = plugin_basename( __FILE__ );
+
+  if ( isset( $value->response[ $plugin_file ] ) ) {
+    unset( $value->response[ $plugin_file ] );
+  }
+
+  return $value;
 }

@@ -10,13 +10,13 @@ Insert multiple column sets with up to 9 columns directly into the HTML editor.
 ## Installation
 
 1. Upload files to the `/wp-content/plugins/` directory of your WordPress installation.
-  - Either [Download the latest files](https://github.com/artcomventure/wordpress-plugin-columns/archive/master.zip) and extract zip (optionally rename folder)
+  - Either [download the latest files](https://github.com/artcomventure/wordpress-plugin-columns/archive/master.zip) and extract zip (optionally rename folder)
   - ... or clone repository:
   ```
   $ cd /PATH/TO/WORDPRESS/wp-content/plugins/
   $ git clone https://github.com/artcomventure/wordpress-plugin-columns.git
   ```
-  If you want a different folder name as `wordpress-plugin-editor` extend clone command by ` 'FOLDERNAME'` (replace the word `'FOLDERNAME'` by your chosen one):
+  If you want a different folder name than `wordpress-plugin-columns` extend clone command by ` 'FOLDERNAME'` (replace the word `'FOLDERNAME'` by your chosen one):
   ```
   $ git clone https://github.com/artcomventure/wordpress-plugin-columns.git 'FOLDERNAME'
   ```
@@ -38,4 +38,6 @@ To change the number columns of an existing set or to remove the columns set (on
 
 Although the plugin is not _yet_ listed on https://wordpress.org/plugins/, you can use WordPress' update functionality to keep it in sync with the files from [GitHub](https://github.com/artcomventure/wordpress-plugin-columns).
 
-_We test our plugin through its paces, but we advise you to back up the database and files before the update. Just in case of the unexpected._
+Since 1.4.0 please use for this our [WordPress Repository Updater](https://github.com/artcomventure/wordpress-plugin-repoUpdater).
+
+_We test our plugin through its paces, but we advise you to take all safety precautions before the update. Just in case of the unexpected._
