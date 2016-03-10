@@ -62,6 +62,11 @@ _We test our plugin through its paces, but we advise you to take all safety prec
 
 == Changelog ==
 
+= 1.4.2 - 2016-03-10 =
+**Added**
+
+* Changed 'Plugins' screen detail link
+
 = 1.4.1 - 2016-03-10 =
 **Added**
 
