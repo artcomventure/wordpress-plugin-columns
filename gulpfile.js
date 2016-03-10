@@ -14,6 +14,8 @@ var gulp = require( 'gulp' ),
     // beautify css
     csscomb = require( 'gulp-csscomb' ),
     replace = require( 'gulp-replace' ),
+    // concat files
+    concat = require( 'gulp-concat' ),
 
     // doesn't break pipe on error
     // so we don't need to restart gulp
@@ -78,7 +80,7 @@ gulp.task( 'scss', function() {
  * Compress css files.
  */
 gulp.task( 'css', ['scss'], function() {
-    gulp.src( cssFiles, { base: 'wp-content' } )
+    return gulp.src( cssFiles, { base: 'wp-content' } )
         .pipe( plumber( { errorHandler: onError } ) )
         // rename to FILENAME.min.css
         .pipe( rename( { suffix: '.min' } ) )
@@ -91,13 +93,44 @@ gulp.task( 'css', ['scss'], function() {
  * Compress and uglify js files.
  */
 gulp.task( 'js', function() {
-    gulp.src( jsFiles, { base: 'wp-content' } )
+    return gulp.src( jsFiles, { base: 'wp-content' } )
         .pipe( plumber( { errorHandler: onError } ) )
         // rename to FILENAME.min.js
         .pipe( rename( { suffix: '.min' } ) )
         // uglify and compress
         .pipe( uglify() )
         .pipe( gulp.dest( 'wp-content' ) );
+} );
+
+/**
+ * Create build.
+ */
+gulp.task( 'build', ['css', 'js'], function() {
+    // collect all needed files
+    gulp.src( [
+        '**/*',
+        // ... but:
+        '!**/*.scss',
+        '!*.md',
+        '!LICENSE',
+        '!readme.txt',
+        '!gulpfile.js',
+        '!package.json',
+        '!.gitignore',
+        '!node_modules{,/**}',
+        '!build{,/**}'
+    ] ).pipe( gulp.dest( 'build/' ) );
+
+    // concat files for WP's readme.txt
+    // manually validate output with https://wordpress.org/plugins/about/validator/
+    gulp.src( [ 'readme.txt', 'README.md', 'CHANGELOG.md' ] )
+        .pipe( concat( 'readme.txt' ) )
+        // WP markup
+        .pipe( replace( /#\s*(Changelog)/g, "## $1" ) )
+        .pipe( replace( /##\s*([^(\n)]+)/g, "== $1 ==" ) )
+        .pipe( replace( /==\s(Unreleased|[0-9\s\.-]+)\s==/g, "= $1 =" ) )
+        .pipe( replace( /#\s*[^\n]+/g, "== Description ==" ) )
+        .pipe( gulp.dest( 'build/' ) );
 } );
 
 /**
