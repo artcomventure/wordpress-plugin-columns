@@ -38,11 +38,13 @@ To change the number columns of an existing set or to remove the columns set (on
 
 Although the plugin is not _yet_ listed on https://wordpress.org/plugins/, you can use WordPress' update functionality to keep it in sync with the files from [GitHub](https://github.com/artcomventure/wordpress-plugin-columns).
 
-Since 1.4.0 please use for this our [WordPress Repository Updater](https://github.com/artcomventure/wordpress-plugin-repoUpdater).
-
-**Repository Updater _Editor Columns_ Settings**
+**Since 1.4.0 please use for this our [WordPress Repository Updater](https://github.com/artcomventure/wordpress-plugin-repoUpdater)** with the settings:
 
 * Repository URL: https://github.com/artcomventure/wordpress-plugin-columns/
 * Subfolder (optionally, if you don't want/need the development files in your environment): build
 
 _We test our plugin through its paces, but we advise you to take all safety precautions before the update. Just in case of the unexpected._
+
+## Questions, concerns, needs, suggestions?
+
+Don't hesitate! [Issues](https://github.com/artcomventure/wordpress-plugin-columns/issues) welcome.

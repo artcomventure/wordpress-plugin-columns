@@ -123,7 +123,7 @@ function columns__plugin_row_meta( $links, $file ) {
 	if ( plugin_basename( __FILE__ ) == $file ) {
 		$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $file );
 
-		$links[2] = '<a href="' . $plugin_data['PluginURI'] . '">' . __( 'View details' ) . '</a>';
+		$links[2] = '<a href="' . $plugin_data['PluginURI'] . '">' . __( 'Visit plugin site' ) . '</a>';
 	}
 
 	return $links;
