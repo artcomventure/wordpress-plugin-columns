@@ -1,6 +1,6 @@
-( function( $, undefined ) {
+(function ( $, undefined ) {
 
-    tinymce.PluginManager.add( 'columns', function( editor ) {
+    tinymce.PluginManager.add( 'columns', function ( editor ) {
         tinymce.PluginManager.requireLangPack( 'columns', 'de_DE' );
 
         editor.addButton( 'columns', {
@@ -11,15 +11,13 @@
                 role: 'application',
                 html: renderColumnsPanel,
 
-                onclick: function( e ) {
-                    var $columnSet = $( editor.dom.getParent( editor.selection.getNode(), '.columns' )),
-                        aColumns = $( 'div.column', $columnSet), iColumns,
+                onclick: function ( e ) {
+                    var $columnSet = $( editor.dom.getParent( editor.selection.getNode(), '.columns' ) ),
+                        aColumns = $( 'div.column', $columnSet ), iColumns,
                         content = [], sInsert = '', i,
-                        isLiquid = $( '#liquid-text' ).is(':checked'),
-                        // insert, replace or refresh
-                        action = 'insert',
+                        isLiquid = $( '#liquid-text' ).is( ':checked' ),
 
-                        // current cursor range
+                    // current cursor range
                         range = editor.selection.getRng();
 
                     // on replace or refresh in case of some empty not text-node
@@ -42,13 +40,15 @@
                     }
 
                     // get number of columns
-                    if ($.isNumeric( e ) || e == 'narrow-wide' || e == 'wide-narrow' ) {
+                    if ( $.isNumeric( e ) || e == 'narrow-wide' || e == 'wide-narrow' ) {
                         iColumns = e;
-                        action = 'refresh';
 
                         if ( paragraph == undefined ) return;
                     }
-                    else iColumns = $( e.target ).closest( 'td' ).data( 'columns' );
+                    else {
+                        iColumns = $( e.target ).closest( 'td' ).data( 'columns' );
+                        this.hide();
+                    }
 
                     // save for re-set range in editor
                     var rangeStartOffset = range.startOffset,
@@ -56,11 +56,8 @@
 
                     // replace or refresh
                     if ( $columnSet.length ) {
-                        action = 'replace';
-                        // maybe 'refresh' ... but this is decided later
-
                         if ( aColumns.length ) {
-                            // insert text node (range) marker for re-set the cursor after 'action'
+                            // insert text node (range) marker for re-set the cursor later
                             range.startContainer.nodeValue = '[range-start-container]' + range.startContainer.nodeValue;
                             range.endContainer.nodeValue += '[range-end-container]';
 
@@ -97,22 +94,19 @@
                             for ( i = 0; i < iColumns; i++ ) {
                                 // for more 'content' then columns
                                 // put rest in last column
-                                if ( i == iColumns - 1 ) content[i] = content.slice(i).join( '' );
+                                if ( i == iColumns - 1 ) content[i] = content.slice( i ).join( '' );
 
                                 if ( !isLiquid ) {
-                                    sInsert += '<div class="column column-' + (i+1) + ( widths ? ' column-' + widths[i] : '' ) + '">';
+                                    sInsert += '<div class="column column-' + (i + 1) + ( widths ? ' column-' + widths[i] : '' ) + '">';
                                 }
 
-                                sInsert += ( content[i] || '<p>' + editor.getLang( 'columns.Column' ) + ' ' + (i+1) + '</p>' );
+                                sInsert += ( content[i] || '<p>' + editor.getLang( 'columns.Column' ) + ' ' + (i + 1) + '</p>' );
 
                                 if ( !isLiquid ) sInsert += '</div>'; // column
                             }
 
                             sInsert += '</div>'; // columns
                         }
-
-                        // close panel
-                        if ( action != 'refresh' ) this.hide();
 
                         var $insert = $( sInsert ),
                             startContainer = null,
@@ -141,13 +135,13 @@
                                             endContainer = node;
                                         }
                                     }
-                                    else if (node.nodeType == 1) findRangeContainers( node );
+                                    else if ( node.nodeType == 1 ) findRangeContainers( node );
 
                                     node = node.nextSibling;
                                 }
                             }
 
-                            $insert.each( function() {
+                            $insert.each( function () {
                                 findRangeContainers( this );
                             } );
 
@@ -165,26 +159,26 @@
                 }
             },
 
-            onPostRender: function() {
+            onPostRender: function () {
                 // ...
-                editor.on( 'init', function() {
+                editor.on( 'init', function () {
                     // editor body
-                    var body = editor.dom.getParent( editor.selection.getNode(), 'body');
+                    var body = editor.dom.getParent( editor.selection.getNode(), 'body' );
 
                     // add/remove paragraph button
-                    $( body ).on( 'mouseenter mouseleave', 'div.columns', function( e ) {
+                    $( body ).on( 'mouseenter mouseleave', 'div.columns', function ( e ) {
                         // get column set
                         var $columnset = $( e.target );
                         if ( !$columnset.is( '.columns' ) ) $columnset = $columnset.closest( 'div.columns' );
 
                         // paragraph buttons ~
                         // ~ remove
-                        if (e.type == 'mouseleave' ) $columnset.find( 'span.add-paragraph' ).remove();
+                        if ( e.type == 'mouseleave' ) $columnset.find( 'span.add-paragraph' ).remove();
                         // ~ add
                         else {
-                            var $addParagraph = $( '<span class="add-paragraph" />');
+                            var $addParagraph = $( '<span class="add-paragraph" />' );
                             $addParagraph.attr( 'title', editor.getLang( 'columns.AddParagraph' ) )
-                                .on( 'click', function() {
+                                .on( 'click', function () {
                                     // define position where to add paragraph
                                     var where = 'after';
                                     if ( $( this ).is( ':first-child' ) ) where = 'before';
@@ -203,9 +197,9 @@
                     events = ['nodechange', 'click', 'show'];
 
                 for ( var i = 0; i < events.length; i++ ) {
-                    editor.on( events[i], function( e ) {
+                    editor.on( events[i], function ( e ) {
                         // editor body
-                        var body = editor.dom.getParent( editor.selection.getNode(), 'body');
+                        var body = editor.dom.getParent( editor.selection.getNode(), 'body' );
 
                         // reset
                         $( 'div.columns', $( body ) ).removeClass( 'active' );
@@ -281,4 +275,4 @@
         }
     } );
 
-} )( jQuery );
+})( jQuery );
