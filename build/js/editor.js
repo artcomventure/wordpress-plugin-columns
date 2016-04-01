@@ -23,7 +23,7 @@
                         range = editor.selection.getRng();
 
                     // on replace or refresh in case of some empty not text-node
-                    if ( $columnSet.length && range.startContainer.nodeType != 3 && !range.startContainer.textContent ) {
+                    if ( $columnSet.length && range.startContainer.nodeType == 3 && !range.startContainer.textContent.trim() ) {
                         // get column
                         var column = editor.dom.getParent( range.startContainer.parentNode, '.column' );
 
@@ -40,6 +40,15 @@
                         // re-set range start
                         range.setStart( column.firstChild, 1 );
                     }
+
+                    // get number of columns
+                    if ($.isNumeric( e ) || e == 'narrow-wide' || e == 'wide-narrow' ) {
+                        iColumns = e;
+                        action = 'refresh';
+
+                        if ( paragraph == undefined ) return;
+                    }
+                    else iColumns = $( e.target ).closest( 'td' ).data( 'columns' );
 
                     // save for re-set range in editor
                     var rangeStartOffset = range.startOffset,
@@ -68,13 +77,6 @@
                         content = [tinyMCE.activeEditor.selection.getContent()];
                         if ( content[0] ) content[0] = '<p>' + content[0] + '</p>';
                     }
-
-                    // get number of columns
-                    if ($.isNumeric( e ) || e == 'narrow-wide' || e == 'wide-narrow' ) {
-                        iColumns = e;
-                        action = 'refresh';
-                    }
-                    else iColumns = $( e.target ).closest( 'td' ).data( 'columns' );
 
                     if ( iColumns == undefined ) e.stopPropagation();
                     else {

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.3 - 2016-04-01
+**Fixed**
+
+* Imrove/fix 'refresh' behaviour
+
 ## 1.4.2 - 2016-03-10
 **Added**
 
