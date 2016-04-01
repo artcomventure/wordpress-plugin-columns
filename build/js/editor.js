@@ -30,10 +30,8 @@
                             column.removeChild( column.firstChild );
                         }
 
-                        // insert empty paragraph
-                        var paragraph = document.createElement( 'p' );
-                        paragraph.appendChild( document.createTextNode( '\u00A0' ) );
-                        column.appendChild( paragraph );
+                        // insert paragraph
+                        $( column ).append( '<p>' + editor.getLang( 'columns.Column' ) + ' ' + ( aColumns.index( column ) + 1 ) + '</p>' );
 
                         // re-set range start
                         range.setStart( column.firstChild, 1 );
@@ -43,7 +41,7 @@
                     if ( $.isNumeric( e ) || e == 'narrow-wide' || e == 'wide-narrow' ) {
                         iColumns = e;
 
-                        if ( paragraph == undefined ) return;
+                        if ( column == undefined ) return;
                     }
                     else {
                         iColumns = $( e.target ).closest( 'td' ).data( 'columns' );
