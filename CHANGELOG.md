@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.4 - 2016-04-04
+**Fixed**
+
+* Fix columns selection in editor.
+
 ## 1.4.3 - 2016-04-01
 **Fixed**
 

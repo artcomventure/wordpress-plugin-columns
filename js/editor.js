@@ -54,11 +54,11 @@
 
                     // replace or refresh
                     if ( $columnSet.length ) {
-                        if ( aColumns.length ) {
-                            // insert text node (range) marker for re-set the cursor later
-                            range.startContainer.nodeValue = '[range-start-container]' + range.startContainer.nodeValue;
-                            range.endContainer.nodeValue += '[range-end-container]';
+                        // insert text node (range) marker for re-set the cursor later
+                        range.startContainer.nodeValue = '[range-start-container]' + range.startContainer.nodeValue;
+                        range.endContainer.nodeValue += '[range-end-container]';
 
+                        if ( aColumns.length ) {
                             // collect content
                             for ( i = 0; i < aColumns.length; i++ ) {
                                 content.push( aColumns[i].innerHTML.trim() );
@@ -113,46 +113,46 @@
                         // replace/remove
                         if ( $columnSet.length ) {
                             $columnSet.replaceWith( $insert );
-
-                            // remove range marker
-                            function findRangeContainers( node ) {
-                                if ( !node ) return;
-
-                                node = node.firstChild;
-
-                                while ( node && ( !startContainer || !endContainer ) ) {
-                                    // is text node
-                                    if ( node.nodeType == 3 ) {
-                                        if ( node.nodeValue.match( new RegExp( '^\\[range-start-container\\]' ) ) ) {
-                                            node.nodeValue = node.nodeValue.replace( '[range-start-container]', '' );
-                                            startContainer = node;
-                                        }
-
-                                        if ( node.nodeValue.match( new RegExp( '\\[range-end-container\\]$' ) ) ) {
-                                            node.nodeValue = node.nodeValue.replace( '[range-end-container]', '' );
-                                            endContainer = node;
-                                        }
-                                    }
-                                    else if ( node.nodeType == 1 ) findRangeContainers( node );
-
-                                    node = node.nextSibling;
-                                }
-                            }
-
-                            $insert.each( function () {
-                                findRangeContainers( this );
-                            } );
-
-                            // re-set range marker
-                            if ( startContainer && endContainer ) {
-                                range.setStart( startContainer, rangeStartOffset );
-                                range.setEnd( endContainer, rangeEndOffset );
-
-                                editor.selection.setRng( range );
-                            }
                         }
                         // insert
                         else editor.insertContent( sInsert );
+
+                        // remove range marker
+                        function findRangeContainers( node ) {
+                            if ( !node ) return;
+
+                            node = node.firstChild;
+
+                            while ( node && ( !startContainer || !endContainer ) ) {
+                                // is text node
+                                if ( node.nodeType == 3 ) {
+                                    if ( node.nodeValue.match( new RegExp( '^\\[range-start-container\\]' ) ) ) {
+                                        node.nodeValue = node.nodeValue.replace( '[range-start-container]', '' );
+                                        startContainer = node;
+                                    }
+
+                                    if ( node.nodeValue.match( new RegExp( '\\[range-end-container\\]$' ) ) ) {
+                                        node.nodeValue = node.nodeValue.replace( '[range-end-container]', '' );
+                                        endContainer = node;
+                                    }
+                                }
+                                else if ( node.nodeType == 1 ) findRangeContainers( node );
+
+                                node = node.nextSibling;
+                            }
+                        }
+
+                        $insert.each( function () {
+                            findRangeContainers( this );
+                        } );
+
+                        // re-set range marker
+                        if ( startContainer && endContainer ) {
+                            range.setStart( startContainer, rangeStartOffset );
+                            range.setEnd( endContainer, rangeEndOffset );
+
+                            editor.selection.setRng( range );
+                        }
                     }
                 }
             },
