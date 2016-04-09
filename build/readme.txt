@@ -64,6 +64,11 @@ Don't hesitate! [Issues](https://github.com/artcomventure/wordpress-plugin-colum
 
 == Changelog ==
 
+= 1.5.0 - 2016-04-09 =
+**Added**
+
+* Auto ($global_width) responsive columns.
+
 = 1.4.4 - 2016-04-04 =
 **Fixed**
 

@@ -22,7 +22,7 @@
     }
   }
 
-  &:not(.columns-liquid) > .column {
+  > .column {
     box-sizing: border-box;
     padding: 0 1em;
 
@@ -33,6 +33,11 @@
     &.column-wide {
       width: 66.66666%;
     }
+  }
+
+  &.columns-liquid {
+    box-sizing: inherit;
+    padding: 0;
   }
 
   &:after {

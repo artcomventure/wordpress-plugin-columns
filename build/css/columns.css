@@ -129,17 +129,22 @@
             column-gap: 2em;
 }
 
-.columns:not(.columns-liquid) > .column {
+.columns > .column {
     box-sizing: border-box;
     padding: 0 1em;
 }
 
-.columns:not(.columns-liquid) > .column.column-narrow {
+.columns > .column.column-narrow {
     width: 33.33333%;
 }
 
-.columns:not(.columns-liquid) > .column.column-wide {
+.columns > .column.column-wide {
     width: 66.66666%;
+}
+
+.columns.columns-liquid {
+    box-sizing: inherit;
+    padding: 0;
 }
 
 .columns:after {

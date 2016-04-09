@@ -4,7 +4,7 @@
  * Plugin Name: Editor Columns
  * Plugin URI: https://github.com/artcomventure/wordpress-plugin-columns
  * Description: Extends HTML Editor with WYSIWYG columns.
- * Version: 1.4.4
+ * Version: 1.5.0
  * Text Domain: columns
  * Author: artcom venture GmbH
  * Author URI: http://www.artcom-venture.de/
@@ -49,7 +49,25 @@ function columns__admin_head() {
  */
 add_action( 'wp_enqueue_scripts', 'columns_enqueue_scripts' );
 function columns_enqueue_scripts() {
-	wp_enqueue_style( 'columns', COLUMNS_PLUGIN_URL . 'css/columns.min.css', array(), '20160304' );
+	wp_enqueue_style( 'columns', COLUMNS_PLUGIN_URL . 'css/columns.min.css', array(), '20160409' );
+
+	// auto responsive
+	global $content_width;
+
+	// todo: specific behaviour for different column sets
+	wp_add_inline_style( 'columns', '@media ( max-width: ' . $content_width/2 . 'px ) {
+	.columns {
+		display: block;
+		margin-right: 0;
+		margin-left: 0;
+	}
+
+	.columns[class*="columns-"] .column {
+		width: 100%;
+		padding-right: 0;
+		padding-left: 0;
+	}
+}' );
 }
 
 /**
