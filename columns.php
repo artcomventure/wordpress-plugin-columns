@@ -4,7 +4,7 @@
  * Plugin Name: Editor Columns
  * Plugin URI: https://github.com/artcomventure/wordpress-plugin-columns
  * Description: Extends HTML Editor with WYSIWYG columns.
- * Version: 1.5.0
+ * Version: 1.5.1
  * Text Domain: columns
  * Author: artcom venture GmbH
  * Author URI: http://www.artcom-venture.de/
@@ -51,10 +51,37 @@ add_action( 'wp_enqueue_scripts', 'columns_enqueue_scripts' );
 function columns_enqueue_scripts() {
 	wp_enqueue_style( 'columns', COLUMNS_PLUGIN_URL . 'css/columns.min.css', array(), '20160409' );
 
-	// auto responsive
+	// auto responsive behaviour
 	global $content_width;
 
-	// todo: specific behaviour for different column sets
+	// ... on 2/3 width
+	wp_add_inline_style( 'columns', '@media ( max-width: ' . $content_width / 3 * 2 . 'px ) {
+	.columns.columns-5,
+	.columns.columns-6,
+	.columns.columns-7,
+	.columns.columns-8,
+	.columns.columns-9 {
+		flex-wrap: wrap;
+	}
+
+	.columns.columns-5 .column,
+	.columns.columns-6 .column,
+	.columns.columns-7 .column:nth-child(n+5),
+	.columns.columns-9 .column {
+		width: 33.33333%;
+	}
+
+	.columns.columns-5 .column:nth-child(n+4) {
+		width: 50%;
+	}
+
+	.columns.columns-7 .column,
+	.columns.columns-8 .column {
+		width: 25%;
+	}
+}' );
+
+	// ... on 50% width
 	wp_add_inline_style( 'columns', '@media ( max-width: ' . $content_width/2 . 'px ) {
 	.columns {
 		display: block;
