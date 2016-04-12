@@ -4,7 +4,7 @@
  * Plugin Name: Editor Columns
  * Plugin URI: https://github.com/artcomventure/wordpress-plugin-columns
  * Description: Extends HTML Editor with WYSIWYG columns.
- * Version: 1.5.1
+ * Version: 1.5.2
  * Text Domain: columns
  * Author: artcom venture GmbH
  * Author URI: http://www.artcom-venture.de/
@@ -51,11 +51,11 @@ add_action( 'wp_enqueue_scripts', 'columns_enqueue_scripts' );
 function columns_enqueue_scripts() {
 	wp_enqueue_style( 'columns', COLUMNS_PLUGIN_URL . 'css/columns.min.css', array(), '20160409' );
 
-	// auto responsive behaviour
-	global $content_width;
+	$options = columns_get_options( true );
+	if ( !$options['responsive'] ) return;
 
-	// ... on 2/3 width
-	wp_add_inline_style( 'columns', '@media ( max-width: ' . $content_width / 3 * 2 . 'px ) {
+	// tablet
+	wp_add_inline_style( 'columns', '@media ( max-width: ' . $options['tablet'] . 'px ) {
 	.columns.columns-5,
 	.columns.columns-6,
 	.columns.columns-7,
@@ -81,8 +81,8 @@ function columns_enqueue_scripts() {
 	}
 }' );
 
-	// ... on 50% width
-	wp_add_inline_style( 'columns', '@media ( max-width: ' . $content_width/2 . 'px ) {
+	// mobile
+	wp_add_inline_style( 'columns', '@media ( max-width: ' . $options['mobile'] . 'px ) {
 	.columns {
 		display: block;
 		margin-right: 0;
@@ -172,4 +172,15 @@ function columns__plugin_row_meta( $links, $file ) {
 	}
 
 	return $links;
+}
+
+// options
+include( COLUMNS_PLUGIN_DIR . 'inc/options.php' );
+
+/**
+ * Delete traces on deactivation.
+ */
+register_deactivation_hook( __FILE__, 'columns_deactivate' );
+function columns_deactivate() {
+	delete_option( 'columns' );
 }

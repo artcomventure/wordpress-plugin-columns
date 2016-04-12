@@ -64,6 +64,11 @@ Don't hesitate! [Issues](https://github.com/artcomventure/wordpress-plugin-colum
 
 == Changelog ==
 
+= 1.5.2 - 2016-04-12 =
+**Changed**
+
+* Manually @media query breakpoint settings.
+
 = 1.5.1 - 2016-04-10 =
 **Added**
 

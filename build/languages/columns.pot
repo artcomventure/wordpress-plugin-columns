@@ -28,3 +28,21 @@ msgstr ""
 
 msgid "Add paragraph"
 msgstr ""
+
+msgid "%s Settings"
+msgstr ""
+
+msgid "@media Query Breakpoints"
+msgstr ""
+
+msgid "Add responsive CSS"
+msgstr ""
+
+msgid "Values in pixels. To exclude a breakpoint just enter a very small value."
+msgstr ""
+
+msgid "Intermediate step. Larger column sets will be displayed in multiple rows.<br />For Example: <code>1x9</code> to <code>3x3</code>, <code>1x8</code> to <code>2x4</code>, <code>1x7</code> to <code>1x4 + 1x3</code>, ..."
+msgstr ""
+
+msgid "All columns will be displayed in a single column."
+msgstr ""
