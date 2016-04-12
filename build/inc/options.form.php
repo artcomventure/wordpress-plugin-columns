@@ -57,7 +57,7 @@
 					<td>
 						<input type="text" class="regular-text"
 						       value="<?php echo $columns_options[ strtolower( $breakpoint )]; ?>"
-						       placeholder="<?php echo $breakpoint == 'Tablet' ? $content_width / 3 * 2 : $content_width / 2; ?>"
+						       placeholder="<?php echo $breakpoint == 'Tablet' ? floor( $content_width / 3 * 2 ) : floor( $content_width / 2 ); ?>"
 						       name="columns[<?php echo strtolower( $breakpoint ); ?>]" />
 
 						<p class="description">

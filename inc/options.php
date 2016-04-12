@@ -66,8 +66,8 @@ function columns_get_options( $defaults = false ) {
 		$options = array_filter( $options ) + array(
 				'columns' => 9,
 				'responsive' => 0,
-				'tablet' => $content_width / 3 * 2,
-				'mobile' => $content_width / 2
+				'tablet' => floor( $content_width / 3 * 2 ),
+				'mobile' => floor( $content_width / 2 )
 			);
 	}
 

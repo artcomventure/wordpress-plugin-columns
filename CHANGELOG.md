@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.3 - 2016-04-12
+**Fixed**
+
+* Default breakpoints in type integer.
+
 ## 1.5.2 - 2016-04-12
 **Changed**
 
