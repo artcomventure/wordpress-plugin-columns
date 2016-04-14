@@ -32,6 +32,12 @@ msgstr ""
 msgid "%s Settings"
 msgstr ""
 
+msgid "Maximum available columns"
+msgstr ""
+
+msgid "Define available number of columns in editor from 2 to 9."
+msgstr ""
+
 msgid "@media Query Breakpoints"
 msgstr ""
 

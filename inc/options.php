@@ -33,11 +33,12 @@ function columns_options_page() {
 
 /**
  * @param string $option
+ * @param bool $default
  *
  * @return mixed
  */
-function columns_get_option( $option = '' ) {
-	$options = columns_get_options();
+function columns_get_option( $option = '', $default = false ) {
+	$options = columns_get_options( $default );
 
 	if ( ! $option || !isset( $options[$option] ) ) {
 		return NULL;

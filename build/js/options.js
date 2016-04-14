@@ -3,6 +3,12 @@
     var $form = $( '#columns-options-form');
     if ( !$form.length ) return;
 
+    $( 'input[name="columns[columns]"]', $form).on( 'focus keydown keyup blur', function() {
+        var $this = $( this );
+
+        $this.val( $this.val().slice( 0, 1 ).replace( new RegExp( '[^2-9]' ), '') );
+    } );
+
     var $breakpoints = $( 'input[name="columns[tablet]"], input[name="columns[mobile]"]', $form)
         // only integer values
         .on( 'focus keydown keyup blur', function() {

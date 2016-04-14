@@ -236,7 +236,8 @@
          * @returns {string}
          */
         function renderColumnsPanel() {
-            var html = '<table class="mce-grid mce-grid-border mce-columns-grid"><tbody>';
+            var html = '<table class="mce-grid mce-grid-border mce-columns-grid"><tbody>',
+                columns = columns_options.columns || 9;
 
             // liquid text
             html += '<tr style="display:none;"><td colspan="10">';
@@ -246,10 +247,19 @@
 
             // free select
             html += '<tr>';
-            for ( var i = 1; i < 10; i++ ) {
+            for ( var i = 1; i <= columns; i++ ) {
                 html += '<td data-columns="' + i + '">';
                 html += '<span>' + ( i > 1 ? i : '&times;' ) + '</span>';
                 html += '</td>';
+            }
+            html += '</tr>';
+
+            html += '</tbody></table>';
+
+            html += '<table class="mce-grid mce-grid-border mce-columns-grid"><tbody>';
+            html += '<tr style="visibility:collapse;">';
+            for ( i = 1; i < 10; i++ ) {
+                html += '<td>&nbsp;</td>';
             }
             html += '</tr>';
 

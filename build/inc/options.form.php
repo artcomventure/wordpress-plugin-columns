@@ -7,7 +7,7 @@
 		// get columns options
 		$columns_options = columns_get_options(); ?>
 
-		<table class="form-table" style="display:none;">
+		<table class="form-table">
 			<tbody>
 
 			<tr valign="top">
@@ -24,14 +24,6 @@
 				</td>
 			</tr>
 
-			</tbody>
-		</table>
-
-		<h3><?php _e( '@media Query Breakpoints', 'columns' ) ?></h3>
-
-		<table class="form-table">
-			<tbody>
-
 			<tr valign="top">
 				<th scope="row"><?php _e( 'Add responsive CSS', 'columns' ); ?>:</th>
 				<td>
@@ -39,6 +31,14 @@
 					       value="1"<?php checked( $columns_options['responsive'] ); ?> />
 				</td>
 			</tr>
+
+			</tbody>
+		</table>
+
+		<h3><?php _e( '@media Query Breakpoints', 'columns' ) ?></h3>
+
+		<table class="form-table">
+			<tbody>
 
 			<tr valign="top">
 				<td colspan="2" style="padding-right: 0; padding-left: 0;">

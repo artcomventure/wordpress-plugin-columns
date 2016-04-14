@@ -6,6 +6,7 @@ Insert multiple column sets with up to 9 columns directly into the HTML editor.
 
 * no shortcodes
 * no extra templates
+* _customizable_ **responsive**
 
 ## Installation
 
@@ -33,6 +34,14 @@ Once activated you'll find the columns button at the very left position of the f
 4. Edit content.
 
 To change the number columns of an existing set or to remove the columns set (only columns, not the content) just click somewhere in the columns and repeat from #2.
+
+### Settings
+
+You can find the 'Editor columns' options page listed in the submenu of 'Settings'.
+
+1. Define the number of columns which are available in the editor. _Default: 9_
+2. Include default responsive CSS. _Default: false_
+3. ... and define the @media breakpoints. _Default: calculated from `global $content_width;`_
 
 ## Plugin Updates
 

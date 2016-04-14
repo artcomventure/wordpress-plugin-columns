@@ -19,6 +19,7 @@ Insert multiple column sets with up to 9 columns directly into the HTML editor.
 
 * no shortcodes
 * no extra templates
+* _customizable_ **responsive**
 
 == Installation ==
 
@@ -47,6 +48,14 @@ Once activated you'll find the columns button at the very left position of the f
 
 To change the number columns of an existing set or to remove the columns set (only columns, not the content) just click somewhere in the columns and repeat from == Description ==
 
+== == Description ==
+
+You can find the 'Editor columns' options page listed in the submenu of 'Settings'.
+
+1. Define the number of columns which are available in the editor. _Default: 9_
+2. Include default responsive CSS. _Default: false_
+3. ... and define the @media breakpoints. _Default: calculated from `global $content_width;`_
+
 == Plugin Updates ==
 
 Although the plugin is not _yet_ listed on https://wordpress.org/plugins/, you can use WordPress' update functionality to keep it in sync with the files from [GitHub](https://github.com/artcomventure/wordpress-plugin-columns).
@@ -63,6 +72,11 @@ _We test our plugin through its paces, but we advise you to take all safety prec
 Don't hesitate! [Issues](https://github.com/artcomventure/wordpress-plugin-columns/issues) welcome.
 
 == Changelog ==
+
+= 1.5.4 - 2016-04-14 =
+**Added**
+
+* Setting/Option: available number of columns.
 
 = 1.5.3 - 2016-04-12 =
 **Fixed**

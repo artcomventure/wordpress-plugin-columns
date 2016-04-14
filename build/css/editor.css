@@ -85,6 +85,8 @@ i.mce-i-columns:after {
 }
 
 table.mce-columns-grid {
+    width: calc(100% - 8px);
+    min-width: 100px; 
     margin: 4px;
     border-collapse: collapse;
 }
@@ -135,25 +137,29 @@ table.mce-columns-grid tr:first-child input[type="checkbox"]:checked + label:bef
     border-color: #25aa48;
 }
 
-table.mce-columns-grid tr:nth-child(2) td:first-child span {
-    color: #a00 !important; 
-    border-color: #a00 !important;
-}
-
 table.mce-columns-grid tr:hover td span {
     color: #000;
     border-color: #a1a1a1; 
     background-color: #c8def4;
 }
 
-table.mce-columns-grid tr:hover:nth-child(2) td:hover ~ td span,
-table.mce-columns-grid tr:hover:nth-child(2) td:first-child span {
+table.mce-columns-grid:first-of-type {
+    margin-bottom: -4px;
+}
+
+table.mce-columns-grid:first-of-type tr:nth-child(2) td:first-child span {
+    color: #a00 !important; 
+    border-color: #a00 !important;
+}
+
+table.mce-columns-grid:first-of-type tr:nth-child(2) td:hover ~ td span,
+table.mce-columns-grid:first-of-type tr:nth-child(2) td:first-child span {
     color: #d6d6d6;
     border-color: #d6d6d6; 
     background-color: #fff;
 }
 
-table.mce-columns-grid tr:hover:nth-child(2) td:first-child span:hover {
+table.mce-columns-grid:first-of-type tr:nth-child(2):hover td:first-child span:hover {
     color: #fff !important;
     background: #a00;
 }

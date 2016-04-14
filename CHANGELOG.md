@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.4 - 2016-04-14
+**Added**
+
+* Setting/Option: available number of columns.
+
 ## 1.5.3 - 2016-04-12
 **Fixed**
 
