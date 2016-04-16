@@ -28,6 +28,8 @@ Insert multiple column sets with up to 9 columns directly into the HTML editor.
 
 Once activated you'll find the columns button at the very left position of the first editor buttons row.
 
+![image](assets/screenshot-1.png)
+
 1. Select the text or position the cursor at the point where the columns should be inserted.
 2. Click the columns button.
 3. Choose number of columns.
@@ -38,6 +40,8 @@ To change the number columns of an existing set or to remove the columns set (on
 ### Settings
 
 You can find the 'Editor columns' options page listed in the submenu of 'Settings'.
+
+![image](assets/screenshot-2.png)
 
 1. Define the number of columns which are available in the editor. _Default: 9_
 2. Include default responsive CSS. _Default: false_

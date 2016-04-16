@@ -48,7 +48,7 @@ Once activated you'll find the columns button at the very left position of the f
 
 To change the number columns of an existing set or to remove the columns set (only columns, not the content) just click somewhere in the columns and repeat from == Description ==
 
-== == Description ==
+=== Settings ===
 
 You can find the 'Editor columns' options page listed in the submenu of 'Settings'.
 

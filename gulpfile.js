@@ -127,7 +127,8 @@ gulp.task( 'build', ['clear:build', 'css', 'js'], function() {
         '!.csscomb.json',
         '!.gitignore',
         '!node_modules{,/**}',
-        '!build{,/**}'
+        '!build{,/**}',
+        '!assets{,/**}'
     ] ).pipe( gulp.dest( 'build/' ) );
 
     // collect css files
@@ -140,8 +141,12 @@ gulp.task( 'build', ['clear:build', 'css', 'js'], function() {
     // manually validate output with https://wordpress.org/plugins/about/validator/
     gulp.src( [ 'readme.txt', 'README.md', 'CHANGELOG.md' ] )
         .pipe( concat( 'readme.txt' ) )
+        // remove screenshots
+        // todo: scrennshot section for WP's readme.txt
+        .pipe( replace( /\n\!\[image\]\([^)]+\)\n/g, '' ) )
         // WP markup
         .pipe( replace( /#\s*(Changelog)/g, "## $1" ) )
+        .pipe( replace( /###\s*([^(\n)]+)/g, "=== $1 ===" ) )
         .pipe( replace( /##\s*([^(\n)]+)/g, "== $1 ==" ) )
         .pipe( replace( /==\s(Unreleased|[0-9\s\.-]+)\s==/g, "= $1 =" ) )
         .pipe( replace( /#\s*[^\n]+/g, "== Description ==" ) )
