@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.4 - 2016-05-04
+**Fixed**
+
+* Resolve 404 file error in backend due to missing/fake js file.
+
 ## 1.5.4 - 2016-04-14
 **Added**
 
