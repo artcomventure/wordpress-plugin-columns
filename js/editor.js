@@ -17,11 +17,11 @@
                         content = [], sInsert = '', i,
                         isLiquid = $( '#liquid-text' ).is( ':checked' ),
 
-                    // current cursor range
+                        // current cursor range
                         range = editor.selection.getRng();
 
                     // on replace or refresh in case of some empty not text-node
-                    if ( $columnSet.length && range.startContainer.nodeType == 3 && !range.startContainer.textContent.trim() ) {
+                    if ( !$.isNumeric( e ) && $columnSet.length && range.startContainer.nodeType == 3 && !range.startContainer.textContent.trim() ) {
                         // get column
                         var column = editor.dom.getParent( range.startContainer.parentNode, '.column' );
 
