@@ -1,48 +1,36 @@
 .columns {
-  margin: 1em -1em;
+  margin: 1em 0;
   min-width: 100%;
-  display: flex;
+
+  &:not(.columns-liquid) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
 
   &.columns-liquid {
-    display: inherit;
-    margin-right: 0;
-    margin-left: 0;
+    column-gap: 2em;
   }
 
   @for $i from 1 through 9 {
     &.columns-#{$i} {
       .column {
-        width: #{100% / $i};
+        width: calc(#{100% / $i} - #{1em * ($i - 1)});
       }
 
       &.columns-liquid {
         column-count: #{$i};
-        column-gap: 2em;
       }
     }
   }
 
-  > .column {
-    box-sizing: border-box;
-    padding: 0 1em;
-
+  > .column-2 {
     &.column-narrow {
-      width: 33.33333%;
+      width: calc(33.33333% - .5em);
     }
 
     &.column-wide {
-      width: 66.66666%;
+      width: calc(66.66666% - .5em);
     }
-  }
-
-  &.columns-liquid {
-    box-sizing: inherit;
-    padding: 0;
-  }
-
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
   }
 }

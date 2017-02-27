@@ -73,6 +73,11 @@ Don't hesitate! [Issues](https://github.com/artcomventure/wordpress-plugin-colum
 
 == Changelog ==
 
+= 1.5.7 - 2017-02-27 =
+**Fixed**
+
+* Css' border-box (with padding) vs flex box.
+
 = 1.5.6 - 2017-02-21 =
 **Fixed**
 
