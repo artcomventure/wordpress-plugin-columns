@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.8 - 2017-03-08
+**Fixed**
+
+* Responsive css.
+
 ## 1.5.7 - 2017-02-27
 **Fixed**
 
