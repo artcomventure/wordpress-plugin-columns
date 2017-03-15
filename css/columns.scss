@@ -15,7 +15,7 @@
   @for $i from 1 through 9 {
     &.columns-#{$i} {
       .column {
-        width: calc(#{100% / $i} - #{1em * ($i - 1)});
+        width: calc((#{100%} - #{1em * ($i - 1)}) / #{$i});
       }
 
       &.columns-liquid {

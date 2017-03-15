@@ -1,32 +1,17 @@
 @charset "UTF-8";
 .columns {
     position: relative;
-}
-
-.columns:before {
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    content: "";
-    pointer-events: none;
-    opacity: .2; 
-    border: 1px dotted;
+    outline: 1px dotted rgba(0, 0, 0, .1);
 }
 
 .columns.active,
 .columns:hover {
+    outline: 0; 
     background-color: #f7f7f7;
 }
 
-.columns.active:before,
-.columns:hover:before {
-    opacity: 1;
-}
-
-.columns .column:hover {
+.columns.active .column,
+.columns:hover .column {
     background: rgba(0, 0, 0, .05);
 }
 

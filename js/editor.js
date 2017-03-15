@@ -186,7 +186,8 @@
                                 } );
 
                             // eventually add to html
-                            $columnset.prepend( $addParagraph ).append( $addParagraph.clone( true ) );
+                            $columnset.find( 'div.column:first-child' ).prepend( $addParagraph );
+                            $columnset.find( 'div.column:last-child' ).append( $addParagraph.clone( true ) );
                         }
                     } );
                 } );

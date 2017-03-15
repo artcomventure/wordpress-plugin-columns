@@ -18,7 +18,7 @@
 }
 
 .columns.columns-1 .column {
-    width: calc(100% - 0em);
+    width: calc((100% - 0) / 1);
 }
 
 .columns.columns-1.columns-liquid {
@@ -27,7 +27,7 @@
 }
 
 .columns.columns-2 .column {
-    width: calc(50% - 1em);
+    width: calc((100% - 1em) / 2);
 }
 
 .columns.columns-2.columns-liquid {
@@ -36,7 +36,7 @@
 }
 
 .columns.columns-3 .column {
-    width: calc(33.33333% - 2em);
+    width: calc((100% - 2em) / 3);
 }
 
 .columns.columns-3.columns-liquid {
@@ -45,7 +45,7 @@
 }
 
 .columns.columns-4 .column {
-    width: calc(25% - 3em);
+    width: calc((100% - 3em) / 4);
 }
 
 .columns.columns-4.columns-liquid {
@@ -54,7 +54,7 @@
 }
 
 .columns.columns-5 .column {
-    width: calc(20% - 4em);
+    width: calc((100% - 4em) / 5);
 }
 
 .columns.columns-5.columns-liquid {
@@ -63,7 +63,7 @@
 }
 
 .columns.columns-6 .column {
-    width: calc(16.66667% - 5em);
+    width: calc((100% - 5em) / 6);
 }
 
 .columns.columns-6.columns-liquid {
@@ -72,7 +72,7 @@
 }
 
 .columns.columns-7 .column {
-    width: calc(14.28571% - 6em);
+    width: calc((100% - 6em) / 7);
 }
 
 .columns.columns-7.columns-liquid {
@@ -81,7 +81,7 @@
 }
 
 .columns.columns-8 .column {
-    width: calc(12.5% - 7em);
+    width: calc((100% - 7em) / 8);
 }
 
 .columns.columns-8.columns-liquid {
@@ -90,7 +90,7 @@
 }
 
 .columns.columns-9 .column {
-    width: calc(11.11111% - 8em);
+    width: calc((100% - 8em) / 9);
 }
 
 .columns.columns-9.columns-liquid {

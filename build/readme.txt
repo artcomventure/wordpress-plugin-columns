@@ -73,6 +73,12 @@ Don't hesitate! [Issues](https://github.com/artcomventure/wordpress-plugin-colum
 
 == Changelog ==
 
+= 1.5.9 - 2017-03-15 =
+**Fixed**
+
+* Wrong gap calculation.
+* Columns editor UI (add paragraph).
+
 = 1.5.8 - 2017-03-08 =
 **Fixed**
 
