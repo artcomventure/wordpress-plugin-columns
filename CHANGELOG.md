@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.6.0 - 2017-03-21
+**Added**
+
+* Gap settings.
+* Auto create/update columns.css with values from settings.
+
 ## 1.5.9 - 2017-03-15
 **Fixed**
 

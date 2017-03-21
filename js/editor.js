@@ -17,7 +17,7 @@
                         content = [], sInsert = '', i,
                         isLiquid = $( '#liquid-text' ).is( ':checked' ),
 
-                        // current cursor range
+                    // current cursor range
                         range = editor.selection.getRng();
 
                     // on replace or refresh in case of some empty not text-node
@@ -239,12 +239,6 @@
         function renderColumnsPanel() {
             var html = '<table class="mce-grid mce-grid-border mce-columns-grid"><tbody>',
                 columns = columns_options.columns || 9;
-
-            // liquid text
-            html += '<tr style="display:none;"><td colspan="10">';
-            html += '<input id="liquid-text" type="checkbox" />';
-            html += '<label for="liquid-text">Liquid Text</label>';
-            html += '</td></tr>';
 
             // free select
             html += '<tr>';

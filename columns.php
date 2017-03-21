@@ -4,7 +4,7 @@
  * Plugin Name: Editor Columns
  * Plugin URI: https://github.com/artcomventure/wordpress-plugin-columns
  * Description: Extends HTML Editor with WYSIWYG columns.
- * Version: 1.5.9
+ * Version: 1.6.0
  * Text Domain: columns
  * Author: artcom venture GmbH
  * Author URI: http://www.artcom-venture.de/
@@ -16,6 +16,34 @@ if ( ! defined( 'COLUMNS_PLUGIN_URL' ) ) {
 
 if ( ! defined( 'COLUMNS_PLUGIN_DIR' ) ) {
 	define( 'COLUMNS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+}
+
+/**
+ * Check if columns.css exists
+ * ... and create it in case it doesn't.
+ */
+add_action( 'init', 'columns__init' );
+function columns__init() {
+	if ( ! file_exists( COLUMNS_PLUGIN_DIR . 'css/columns.min.css' ) ) {
+		update_option_columns( NULL, columns_get_options( TRUE ), 'columns' );
+	}
+}
+
+/**
+ * Create admin notice.
+ *
+ * @param string $message
+ * @param string $type
+ * @param boolean $html
+ */
+function columns_admin_notice( $message = '', $type = 'info', $html = false ) {
+	if ( $message ) {
+		if ( !$html ) $message = sprintf( '<p>%1$s</p>', esc_html( $message ) );
+
+		add_action( 'admin_notices', function() use ($message, $type) {
+			printf( '<div class="notice notice-%1$s is-dismissible">%2$s</div>', esc_attr( $type ), $message );
+		} );
+	}
 }
 
 /**
@@ -32,15 +60,17 @@ function columns__admin_head() {
 	}
 
 	// add styles to editor
-	add_editor_style( plugins_url( '/css/columns.min.css?', __FILE__ ) );
+	if ( file_exists( COLUMNS_PLUGIN_DIR . 'css/columns.min.css' ) ) {
+		add_editor_style( plugins_url( '/css/columns.min.css?', __FILE__ ) );
+	}
 	add_editor_style( plugins_url( '/css/editor.min.css?', __FILE__ ) );
 
 	// enqueue button style
-	wp_enqueue_style( 'columns-admin', COLUMNS_PLUGIN_URL . 'css/editor.min.css', array(), '20170315' );
+	wp_enqueue_style( 'columns-admin', COLUMNS_PLUGIN_URL . 'css/editor.min.css', array(), '20170321' );
 
 	// add plugin js
 	wp_register_script( 'columns-variables', COLUMNS_PLUGIN_URL . 'js/variables.js' );
-	wp_localize_script( 'columns-variables', 'columns_options', columns_get_options( true ) );
+	wp_localize_script( 'columns-variables', 'columns_options', columns_get_options( TRUE ) );
 	wp_enqueue_script( 'columns-variables' );
 	add_filter( 'mce_external_plugins', 'columns__mce_external_plugins' );
 	// add columns button to editor
@@ -48,48 +78,13 @@ function columns__admin_head() {
 }
 
 /**
- * Enqueue default columns styles.
+ * Enqueue columns styles.
  */
 add_action( 'wp_enqueue_scripts', 'columns_enqueue_scripts' );
 function columns_enqueue_scripts() {
-	wp_enqueue_style( 'columns', COLUMNS_PLUGIN_URL . 'css/columns.min.css', array(), '20170415' );
-
-	$options = columns_get_options( true );
-	if ( !$options['responsive'] ) return;
-
-	// tablet
-	wp_add_inline_style( 'columns', '@media ( max-width: ' . $options['tablet'] . 'px ) {
-	.columns.columns-5 .column,
-	.columns.columns-6 .column,
-	.columns.columns-7 .column:nth-child(n+5),
-	.columns.columns-9 .column {
-		width: 33.33333%;
+	if ( file_exists( COLUMNS_PLUGIN_DIR . 'css/columns.min.css' ) ) {
+		wp_enqueue_style( 'columns', COLUMNS_PLUGIN_URL . 'css/columns.min.css' );
 	}
-
-	.columns.columns-5 .column:nth-child(n+4) {
-		width: 50%;
-	}
-
-	.columns.columns-7 .column,
-	.columns.columns-8 .column {
-		width: 25%;
-	}
-}' );
-
-	// mobile
-	wp_add_inline_style( 'columns', '@media ( max-width: ' . $options['mobile'] . 'px ) {
-	.columns:not(.columns-liquid) {
-		display: block;
-	}
-
-	.columns.columns-liquid {
-	    column-count: 1 !important;
-    }
-
-	.columns[class*="columns-"] .column {
-		width: 100% !important;
-	}
-}' );
 }
 
 /**
@@ -146,13 +141,13 @@ function columns__mce_external_languages( $locales ) {
  */
 add_filter( 'site_transient_update_plugins', 'columns__site_transient_update_plugins' );
 function columns__site_transient_update_plugins( $value ) {
-  $plugin_file = plugin_basename( __FILE__ );
+	$plugin_file = plugin_basename( __FILE__ );
 
-  if ( isset( $value->response[ $plugin_file ] ) ) {
-    unset( $value->response[ $plugin_file ] );
-  }
+	if ( isset( $value->response[ $plugin_file ] ) ) {
+		unset( $value->response[ $plugin_file ] );
+	}
 
-  return $value;
+	return $value;
 }
 
 /**

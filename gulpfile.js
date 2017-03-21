@@ -42,7 +42,8 @@ var gulp = require( 'gulp' ),
     // all our css files
     cssFiles = [
         'css/**/*.css',
-        // ... but already minimized ones
+        // ... but columns.css and already minimized ones
+        '!**/columns.css',
         '!**/*.min.css'
     ],
 
@@ -132,7 +133,7 @@ gulp.task( 'build', ['clear:build', 'css', 'js'], function() {
     ] ).pipe( gulp.dest( 'build/' ) );
 
     // collect css files
-    gulp.src( [ '**/*.css', '!node_modules{,/**}' ] )
+    gulp.src( [ '**/*.css', '!css/columns.css', '!css/columns.min.css' ,'!node_modules{,/**}' ] )
         // ... and remove '/*# sourceMappingURL=FILENAME.css.map */'
         .pipe( replace( /\n*\/\*# sourceMappingURL=.*\.css\.map \*\/\n*$/g, '' ) )
         .pipe( gulp.dest( 'build/' ) );

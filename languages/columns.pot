@@ -52,3 +52,18 @@ msgstr ""
 
 msgid "All columns will be displayed in a single column."
 msgstr ""
+
+msgid "All columns will be displayed in a single column."
+msgstr ""
+
+msgid "Gap"
+msgstr ""
+
+msgid "Specify the gap between two columns. The value can be set in <code>px</code>, <code>em</code>, <code>rem</code> or <code>%</code>."
+msgstr ""
+
+msgid "<b>Please check your gap input.</b> It is wrong and will be ignored. Expected format e.g.: <code>20px</code>, <code>1.5em</code>, ..."
+msgstr ""
+
+msgid "Unable to create css file for editor columns. Please copy and paste the following css to your styles:<br /><a href="#" onclick="%1$s">Show css</a>"
+msgstr ""

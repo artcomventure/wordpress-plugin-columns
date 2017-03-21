@@ -44,8 +44,9 @@ You can find the 'Editor columns' options page listed in the submenu of 'Setting
 ![image](assets/screenshot-2.png)
 
 1. Define the number of columns which are available in the editor. _Default: 9_
-2. Include default responsive CSS. _Default: false_
-3. ... and define the @media breakpoints. _Default: calculated from `global $content_width;`_
+2. Specify the gap between two columns. _Default: 1.5em_
+3. Include default responsive CSS. _Default: false_
+4. ... and define the @media breakpoints. _Default: calculated from `global $content_width;`_
 
 ## Plugin Updates
 

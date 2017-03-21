@@ -6,10 +6,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-04-13 16:16+0200\n"
+"PO-Revision-Date: 2017-03-21 09:42+0100\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language-Team: artcom venture GmbH <info@artcom-venture.de>\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Poedit 1.8.12\n"
 "Last-Translator: Stefan Käsche <stefan.kaesche@artcom-venture.de>\n"
 "Language: de\n"
 
@@ -35,7 +35,7 @@ msgid "Maximum available columns"
 msgstr "Wählbare Spalten-Anzahl"
 
 msgid "Define available number of columns in editor from 2 to 9."
-msgstr "Definieren Sie die maximale Anzahl der Spalten im Editor von 2 bis 9."
+msgstr "Definiere die maximale Anzahl der Spalten im Editor von 2 bis 9."
 
 msgid "Add responsive CSS"
 msgstr "Responsives CSS hinzufügen"
@@ -48,3 +48,15 @@ msgstr "Zwischenschritt. Größere Spaltensätze werden in mehreren Zeilen angez
 
 msgid "All columns will be displayed in a single column."
 msgstr "Alle Spalten werden untereinander in einer Spalte angezeigt."
+
+msgid "Gap"
+msgstr "Abstand"
+
+msgid "Specify the gap between two columns. The value can be set in <code>px</code>, <code>em</code>, <code>rem</code> or <code>%</code>."
+msgstr "Gib den Abstand zwischen zwei Spalten an. Der Wert kann in <code>px</code>, <code>em</code>, <code>rem</code> oder <code>%</code> angegeben werden."
+
+msgid "<b>Please check your gap input.</b> It is wrong and will be ignored. Expected format e.g.: <code>20px</code>, <code>1.5em</code>, ..."
+msgstr "<b>Bitte überprüfe deine Abstands-Eingabe.</b> Sie ist falsch und wird ignoriert. Erwartetes Format z.B.: <code>20px</code>, <code>1.5em</code>, ..."
+
+msgid "Unable to create css file for editor columns. Please copy and paste the following css to your styles:<br /><a href=\"#\" onclick=\"%1$s\">Show css</a>"
+msgstr "Die CSS-Datei für die Editor Spalten konnte nicht erstellt werden. Bitte füge das folgende CSS in deine Stile ein:<br /><a href=\"#\" onclick=\"%1$s\">CSS zeigen</a>"

@@ -53,8 +53,9 @@ To change the number columns of an existing set or to remove the columns set (on
 You can find the 'Editor columns' options page listed in the submenu of 'Settings'.
 
 1. Define the number of columns which are available in the editor. _Default: 9_
-2. Include default responsive CSS. _Default: false_
-3. ... and define the @media breakpoints. _Default: calculated from `global $content_width;`_
+2. Specify the gap between two columns. _Default: 1.5em_
+3. Include default responsive CSS. _Default: false_
+4. ... and define the @media breakpoints. _Default: calculated from `global $content_width;`_
 
 == Plugin Updates ==
 
@@ -72,6 +73,12 @@ _We test our plugin through its paces, but we advise you to take all safety prec
 Don't hesitate! [Issues](https://github.com/artcomventure/wordpress-plugin-columns/issues) welcome.
 
 == Changelog ==
+
+= 1.6.0 - 2017-03-21 =
+**Added**
+
+* Gap settings.
+* Auto create/update columns.css with values from settings.
 
 = 1.5.9 - 2017-03-15 =
 **Fixed**
