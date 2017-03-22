@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.6.1 - 2017-03-22
+**Changed**
+
+* No margin top/bottom for column's first/last child.
+* Regenerate css on new plugin version.
+
 ## 1.6.0 - 2017-03-21
 **Added**
 

@@ -6,8 +6,7 @@
 
 .columns.active,
 .columns:hover {
-    outline: 0; 
-    background-color: #f7f7f7;
+    outline: 0;
 }
 
 .columns.active .column,

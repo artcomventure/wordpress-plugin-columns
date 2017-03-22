@@ -93,6 +93,14 @@ function update_option_columns( $old_value, $value, $option ) {
         flex-wrap: wrap;
     -ms-flex-pack: justify;
     justify-content: space-between;
+}
+
+.columns > * > *:first-child {
+    margin-top: 0;
+}
+
+.columns > * > *:last-child {
+    margin-bottom: 0;
 }';
 
 	$options = columns_get_options( TRUE );
