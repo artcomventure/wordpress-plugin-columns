@@ -74,6 +74,11 @@ Don't hesitate! [Issues](https://github.com/artcomventure/wordpress-plugin-colum
 
 == Changelog ==
 
+= 1.6.2 - 2017-03-22 =
+**Fixed**
+
+* Typo :/
+
 = 1.6.1 - 2017-03-22 =
 **Changed**
 

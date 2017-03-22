@@ -49,8 +49,8 @@
 			</tr>
 
 			<tr valign="top">
-				<th scope="row"><?php _e( 'Add responsive CSS', 'columns' ); ?>
-					:
+				<th scope="row">
+					<?php _e( 'Add responsive CSS', 'columns' ); ?>:
 				</th>
 				<td>
 					<input type="checkbox" class="regular-checkbox"
