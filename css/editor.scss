@@ -6,8 +6,16 @@
   &:hover {
     outline: 0;
 
-    .column {
+    > * {
       background: rgba(#000,.05);
+
+      &:first-child > *:nth-child(2) {
+        margin-top: 0;
+      }
+
+      &:last-child > *:nth-last-child(2) {
+        margin-bottom: 0;
+      }
     }
   }
 
@@ -94,66 +102,34 @@ table.mce-columns-grid {
         background-color: #fff;
         margin: 1px;
       }
-    }
 
-    // liquid text
-    &:first-child input[type="checkbox"] {
-      display: none;
-
-      + label {
-        &:before {
-          width: $dimension;
-          cursor: pointer;
-          content: "";
-          font-family: dashicons;
-          float: left;
-          margin: 0 4px 0 1px;
-          font-size: 1rem;
-        }
-
-        border-bottom: 1px dotted #D6D6D6;
-        display: block;
-        padding: 1px 0 5px;
-        margin-bottom: 2px;
-      }
-
-      &:checked + label {
-        &:before {
-          color: #25aa48;
-          border-color: #25aa48;
-          content: "\f147";
+      &:hover ~ td,
+      &:first-child {
+        span {
+          background-color: #fff;
+          color: #D6D6D6;
+          border-color: #D6D6D6;
         }
       }
     }
 
-    &:hover td span {
-      background-color: #C8DEF4;
-      color: #000;
-      border-color: #a1a1a1;
+    &:hover td {
+      span {
+        background-color: #C8DEF4;
+        color: #000;
+        border-color: #a1a1a1;
+      }
     }
   }
 
   &:first-of-type {
     margin-bottom: -4px;
 
-    tr:nth-child(2) {
-      td {
-        &:first-child span {
-          border-color: #a00 !important;
-          color: #a00 !important;
-        }
+    td:first-child span {
+      border-color: #a00 !important;
+      color: #a00 !important;
 
-        &:hover ~ td,
-        &:first-child {
-          span {
-            background-color: #fff;
-            color: #D6D6D6;
-            border-color: #D6D6D6;
-          }
-        }
-      }
-
-      &:hover td:first-child span:hover {
+      &:hover {
         color: #fff !important;
         background: #a00;
       }

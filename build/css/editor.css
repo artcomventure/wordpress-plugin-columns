@@ -9,9 +9,19 @@
     outline: 0;
 }
 
-.columns.active .column,
-.columns:hover .column {
+.columns.active > *,
+.columns:hover > * {
     background: rgba(0, 0, 0, .05);
+}
+
+.columns.active > *:first-child > *:nth-child(2),
+.columns:hover > *:first-child > *:nth-child(2) {
+    margin-top: 0;
+}
+
+.columns.active > *:last-child > *:nth-last-child(2),
+.columns:hover > *:last-child > *:nth-last-child(2) {
+    margin-bottom: 0;
 }
 
 .columns .add-paragraph {
@@ -92,31 +102,11 @@ table.mce-columns-grid tr td span {
     background-color: #fff;
 }
 
-table.mce-columns-grid tr:first-child input[type="checkbox"] {
-    display: none;
-}
-
-table.mce-columns-grid tr:first-child input[type="checkbox"] + label {
-    display: block;
-    margin-bottom: 2px; 
-    padding: 1px 0 5px;
-    border-bottom: 1px dotted #d6d6d6;
-}
-
-table.mce-columns-grid tr:first-child input[type="checkbox"] + label:before {
-    font-family: dashicons;
-    font-size: 1rem;
-    float: left;
-    width: 15px;
-    margin: 0 4px 0 1px;
-    content: "";
-    cursor: pointer;
-}
-
-table.mce-columns-grid tr:first-child input[type="checkbox"]:checked + label:before {
-    content: "\f147";
-    color: #25aa48;
-    border-color: #25aa48;
+table.mce-columns-grid tr td:hover ~ td span,
+table.mce-columns-grid tr td:first-child span {
+    color: #d6d6d6;
+    border-color: #d6d6d6; 
+    background-color: #fff;
 }
 
 table.mce-columns-grid tr:hover td span {
@@ -129,19 +119,12 @@ table.mce-columns-grid:first-of-type {
     margin-bottom: -4px;
 }
 
-table.mce-columns-grid:first-of-type tr:nth-child(2) td:first-child span {
+table.mce-columns-grid:first-of-type td:first-child span {
     color: #a00 !important; 
     border-color: #a00 !important;
 }
 
-table.mce-columns-grid:first-of-type tr:nth-child(2) td:hover ~ td span,
-table.mce-columns-grid:first-of-type tr:nth-child(2) td:first-child span {
-    color: #d6d6d6;
-    border-color: #d6d6d6; 
-    background-color: #fff;
-}
-
-table.mce-columns-grid:first-of-type tr:nth-child(2):hover td:first-child span:hover {
+table.mce-columns-grid:first-of-type td:first-child span:hover {
     color: #fff !important;
     background: #a00;
 }
