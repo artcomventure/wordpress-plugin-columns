@@ -135,19 +135,19 @@ function update_option_columns( $old_value, $value, $option ) {
 		$css .= '
 
 @media ( max-width: ' . $options['tablet'] . 'px ) {
-	.columns.columns-5 .column,
-	.columns.columns-6 .column,
-	.columns.columns-7 .column:nth-child(n+5),
-	.columns.columns-9 .column {
+	.columns.columns-5 > *,
+	.columns.columns-6 > *,
+	.columns.columns-7 > *:nth-child(n+5),
+	.columns.columns-9 > * {
 		width: calc((33.33333% - ' . $options['gap'] . ' * 2) / 3);
 	}
 
-	.columns.columns-5 .column:nth-child(n+4) {
+	.columns.columns-5 > *:nth-child(n+4) {
 		width: calc((50% - ' . $options['gap'] . ') / 2);
 	}
 
-	.columns.columns-7 .column,
-	.columns.columns-8 .column {
+	.columns.columns-7 > *,
+	.columns.columns-8 > * {
 		width: calc((25% - ' . $options['gap'] . ' * 3) / 4);
 	}
 }';
@@ -161,7 +161,7 @@ function update_option_columns( $old_value, $value, $option ) {
         -ms-flex-direction: column;
 	}
 
-	.columns[class*="columns-"] .column {
+	.columns[class*="columns-"] > * {
 		width: 100% !important;
 	}
 }';
