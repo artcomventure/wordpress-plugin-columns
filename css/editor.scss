@@ -2,20 +2,15 @@
   position: relative;
   outline: 1px dotted rgba(#000, .1);
 
-  &.active,
-  &:hover {
-    outline: 0;
+  &:hover > * {
+    background: rgba(#000,.05);
 
-    > * {
-      background: rgba(#000,.05);
+    &:first-child > *:nth-child(2) {
+      margin-top: 0;
+    }
 
-      &:first-child > *:nth-child(2) {
-        margin-top: 0;
-      }
-
-      &:last-child > *:nth-last-child(2) {
-        margin-bottom: 0;
-      }
+    &:last-child > *:nth-last-child(2) {
+      margin-bottom: 0;
     }
   }
 

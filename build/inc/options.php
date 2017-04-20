@@ -89,11 +89,14 @@ function update_option_columns( $old_value, $value, $option ) {
     display: flex;
     width: 100%;
     max-width: 100%;
-    margin: 0 0 1.5em;
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
     -ms-flex-pack: justify;
     justify-content: space-between;
+}
+
+.columns > * {
+    margin-bottom: 1.5;
 }
 
 .columns > * > *:first-child {

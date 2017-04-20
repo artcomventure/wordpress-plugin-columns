@@ -4,22 +4,14 @@
     outline: 1px dotted rgba(0, 0, 0, .1);
 }
 
-.columns.active,
-.columns:hover {
-    outline: 0;
-}
-
-.columns.active > *,
 .columns:hover > * {
     background: rgba(0, 0, 0, .05);
 }
 
-.columns.active > *:first-child > *:nth-child(2),
 .columns:hover > *:first-child > *:nth-child(2) {
     margin-top: 0;
 }
 
-.columns.active > *:last-child > *:nth-last-child(2),
 .columns:hover > *:last-child > *:nth-last-child(2) {
     margin-bottom: 0;
 }
