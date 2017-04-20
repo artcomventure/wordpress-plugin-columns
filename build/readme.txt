@@ -74,6 +74,11 @@ Don't hesitate! [Issues](https://github.com/artcomventure/wordpress-plugin-colum
 
 == Changelog ==
 
+= 1.6.5 - 2017-04-20 =
+**Fixed**
+
+* Faulty css.
+
 = 1.6.4 - 2017-04-04 =
 **Fixed**
 

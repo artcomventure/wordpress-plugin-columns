@@ -87,7 +87,8 @@ function update_option_columns( $old_value, $value, $option ) {
 	$css = '.columns {
     display: -ms-flexbox;
     display: flex;
-    min-width: 100%;
+    width: 100%;
+    max-width: 100%;
     margin: 0 0 1.5em;
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
@@ -139,16 +140,18 @@ function update_option_columns( $old_value, $value, $option ) {
 	.columns.columns-6 > *,
 	.columns.columns-7 > *:nth-child(n+5),
 	.columns.columns-9 > * {
-		width: calc((33.33333% - ' . $options['gap'] . ' * 2) / 3);
+		width: calc(33.33333% - ' . $options['gap'] . ' * 2 / 3);
 	}
 
+	.columns.columns-2 > .column-narrow,
+	.columns.columns-2 > .column-wide,
 	.columns.columns-5 > *:nth-child(n+4) {
-		width: calc((50% - ' . $options['gap'] . ') / 2);
+		width: calc(50% - ' . $options['gap'] . ' / 2);
 	}
 
 	.columns.columns-7 > *,
 	.columns.columns-8 > * {
-		width: calc((25% - ' . $options['gap'] . ' * 3) / 4);
+		width: calc(25% - ' . $options['gap'] . ' * 3 / 4);
 	}
 }';
 
