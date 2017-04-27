@@ -96,7 +96,7 @@ function update_option_columns( $old_value, $value, $option ) {
 }
 
 .columns > * {
-    margin-bottom: 1.5;
+    margin-bottom: 1.5em;
 }
 
 .columns > * > *:first-child {

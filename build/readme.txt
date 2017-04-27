@@ -74,6 +74,11 @@ Don't hesitate! [Issues](https://github.com/artcomventure/wordpress-plugin-colum
 
 == Changelog ==
 
+= 1.6.7 - 2017-04-27 =
+**Fixed**
+
+* Add missing css unit.
+
 = 1.6.6 - 2017-04-20 =
 **Fixed**
 
