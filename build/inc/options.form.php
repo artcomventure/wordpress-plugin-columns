@@ -50,6 +50,17 @@
 
 			<tr valign="top">
 				<th scope="row">
+					<?php _e( 'Use CSS for galleries', 'columns' ); ?>:
+				</th>
+				<td>
+					<input type="checkbox" class="regular-checkbox"
+					       name="columns[gallery]"
+					       value="1"<?php checked( $columns_options['gallery'] ); ?> />
+				</td>
+			</tr>
+
+			<tr valign="top">
+				<th scope="row">
 					<?php _e( 'Add responsive CSS', 'columns' ); ?>:
 				</th>
 				<td>

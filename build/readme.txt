@@ -74,6 +74,11 @@ Don't hesitate! [Issues](https://github.com/artcomventure/wordpress-plugin-colum
 
 == Changelog ==
 
+= 1.7.0 - 2017-06-01 =
+**Added**
+
+* Option to apply CSS for galleries.
+
 = 1.6.7 - 2017-04-27 =
 **Fixed**
 

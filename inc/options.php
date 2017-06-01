@@ -56,6 +56,7 @@ function columns_get_options( $defaults = FALSE ) {
 	$options = get_option( 'columns', array() ) + array(
 			'columns'    => '',
 			'gap'        => '',
+			'gallery'    => 0,
 			'responsive' => 0,
 			'tablet'     => '',
 			'mobile'     => ''
@@ -70,6 +71,7 @@ function columns_get_options( $defaults = FALSE ) {
 			} ) + array(
 			           'columns'    => 9,
 			           'gap'        => '1.5em',
+			           'gallery'    => 0,
 			           'responsive' => 0,
 			           'tablet'     => floor( $content_width / 3 * 2 ),
 			           'mobile'     => floor( $content_width / 2 )
@@ -84,7 +86,10 @@ function columns_get_options( $defaults = FALSE ) {
  */
 add_action( 'update_option_columns', 'update_option_columns', 10, 3 );
 function update_option_columns( $old_value, $value, $option ) {
-	$css = '.columns {
+	$options = columns_get_options( TRUE );
+
+	$css = '.columns
+' . ( $options['gallery'] ? ', .gallery' : '' ) . ' {
     display: -ms-flexbox;
     display: flex;
     width: 100%;
@@ -95,19 +100,21 @@ function update_option_columns( $old_value, $value, $option ) {
     justify-content: space-between;
 }
 
-.columns > * {
+.columns > *
+' . ( $options['gallery'] ? ', .gallery figure.gallery-item' : '' ) . ' {
     margin-bottom: 1.5em;
 }
 
-.columns > * > *:first-child {
+.columns > * > *:first-child
+' . ( $options['gallery'] ? ', .gallery figure.gallery-item > *:first-child' : '' ) . ' {
     margin-top: 0;
 }
 
-.columns > * > *:last-child {
+.columns > * > *:last-child
+' . ( $options['gallery'] ? ', .gallery figure.gallery-item > *:last-child' : '' ) . ' {
     margin-bottom: 0;
 }';
 
-	$options = columns_get_options( TRUE );
 	if ( $options['gap'] === '0' ) {
 		$options['gap'] = '0px';
 	} elseif ( ! $options['gap'] || ! preg_match( '/\d+(\.\d+)?(px|em|rem|%)/', $options['gap'] ) ) {
@@ -117,7 +124,8 @@ function update_option_columns( $old_value, $value, $option ) {
 	for ( $i = 1; $i <= 9; $i ++ ) {
 		$css .= '
 
-.columns-' . $i . ' > * {
+.columns-' . $i . ' > *
+' . ( $options['gallery'] ? ', .gallery-columns-' . $i . ' figure.gallery-item' : '' ) . ' {
     width: calc((100% - ' . $options['gap'] . ' * ' . ( $i - 1 ) . ') / ' . $i . ');
 }';
 
@@ -139,21 +147,28 @@ function update_option_columns( $old_value, $value, $option ) {
 		$css .= '
 
 @media ( max-width: ' . $options['tablet'] . 'px ) {
-	.columns.columns-5 > *,
-	.columns.columns-6 > *,
-	.columns.columns-7 > *:nth-child(n+5),
-	.columns.columns-9 > * {
+	.columns.columns-5 > *
+	' . ( $options['gallery'] ? ', .gallery.gallery-columns-5 figure.gallery-item' : '' ) . ',
+	.columns.columns-6 > *
+	' . ( $options['gallery'] ? ', .gallery.gallery-columns-6 figure.gallery-item' : '' ) . ',
+	.columns.columns-7 > *:nth-child(n+5)
+	' . ( $options['gallery'] ? ', .gallery.gallery-columns-7 figure.gallery-item:nth-child(n+5)' : '' ) . ',
+	.columns.columns-9 > *
+	' . ( $options['gallery'] ? ', .gallery.gallery-columns-9 figure.gallery-item' : '' ) . ' {
 		width: calc(33.33333% - ' . $options['gap'] . ' * 2 / 3);
 	}
 
 	.columns.columns-2 > .column-narrow,
 	.columns.columns-2 > .column-wide,
-	.columns.columns-5 > *:nth-child(n+4) {
+	.columns.columns-5 > *:nth-child(n+4)
+	' . ( $options['gallery'] ? ', .gallery.gallery-columns-5 figure.gallery-item:nth-child(n+4)' : '' ) . ' {
 		width: calc(50% - ' . $options['gap'] . ' / 2);
 	}
 
-	.columns.columns-7 > *,
-	.columns.columns-8 > * {
+	.columns.columns-7 > *
+	' . ( $options['gallery'] ? ', .gallery.gallery-columns-7 figure.gallery-item' : '' ) . ',
+	.columns.columns-8 > *
+	' . ( $options['gallery'] ? ', .gallery.gallery-columns-8 figure.gallery-item' : '' ) . ' {
 		width: calc(25% - ' . $options['gap'] . ' * 3 / 4);
 	}
 }';
@@ -162,12 +177,14 @@ function update_option_columns( $old_value, $value, $option ) {
 		$css .= '
 
 @media ( max-width: ' . $options['mobile'] . 'px ) {
-	.columns {
+	.columns
+	' . ( $options['gallery'] ? ', .gallery' : '' ) . ' {
 		    flex-direction: column;
         -ms-flex-direction: column;
 	}
 
-	.columns[class*="columns-"] > * {
+	.columns[class*="columns-"] > *
+	' . ( $options['gallery'] ? ', .gallery[class*="gallery-columns-"]' : '' ) . ' {
 		width: 100% !important;
 	}
 }';
