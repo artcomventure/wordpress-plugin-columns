@@ -74,6 +74,11 @@ Don't hesitate! [Issues](https://github.com/artcomventure/wordpress-plugin-colum
 
 == Changelog ==
 
+= 1.7.1 - 2017-06-19 =
+**Fixed**
+
+* Tinymce gallery CSS.
+
 = 1.7.0 - 2017-06-01 =
 **Added**
 

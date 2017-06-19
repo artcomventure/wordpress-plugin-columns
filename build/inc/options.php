@@ -88,6 +88,12 @@ add_action( 'update_option_columns', 'update_option_columns', 10, 3 );
 function update_option_columns( $old_value, $value, $option ) {
 	$options = columns_get_options( TRUE );
 
+	if ( $options['gap'] === '0' ) {
+		$options['gap'] = '0px';
+	} elseif ( ! $options['gap'] || ! preg_match( '/\d+(\.\d+)?(px|em|rem|%)/', $options['gap'] ) ) {
+		$options['gap'] = '1.5em';
+	}
+
 	$css = '.columns
 ' . ( $options['gallery'] ? ', .gallery' : '' ) . ' {
     display: -ms-flexbox;
@@ -100,32 +106,32 @@ function update_option_columns( $old_value, $value, $option ) {
     justify-content: space-between;
 }
 
+.columns > br
+' . ( $options['gallery'] ? ', .gallery > br' : '' ) . ' {
+	display: none;
+}
+
 .columns > *
-' . ( $options['gallery'] ? ', .gallery figure.gallery-item' : '' ) . ' {
-    margin-bottom: 1.5em;
+' . ( $options['gallery'] ? ', .gallery .gallery-item' : '' ) . ' {
+    margin-bottom: ' . $options['gap'] . ';
+    padding: 0;
 }
 
 .columns > * > *:first-child
-' . ( $options['gallery'] ? ', .gallery figure.gallery-item > *:first-child' : '' ) . ' {
+' . ( $options['gallery'] ? ', .gallery .gallery-item > *:first-child' : '' ) . ' {
     margin-top: 0;
 }
 
 .columns > * > *:last-child
-' . ( $options['gallery'] ? ', .gallery figure.gallery-item > *:last-child' : '' ) . ' {
+' . ( $options['gallery'] ? ', .gallery .gallery-item > *:last-child' : '' ) . ' {
     margin-bottom: 0;
 }';
-
-	if ( $options['gap'] === '0' ) {
-		$options['gap'] = '0px';
-	} elseif ( ! $options['gap'] || ! preg_match( '/\d+(\.\d+)?(px|em|rem|%)/', $options['gap'] ) ) {
-		$options['gap'] = '1.5em';
-	}
 
 	for ( $i = 1; $i <= 9; $i ++ ) {
 		$css .= '
 
 .columns-' . $i . ' > *
-' . ( $options['gallery'] ? ', .gallery-columns-' . $i . ' figure.gallery-item' : '' ) . ' {
+' . ( $options['gallery'] ? ', .gallery-columns-' . $i . ' .gallery-item' : '' ) . ' {
     width: calc((100% - ' . $options['gap'] . ' * ' . ( $i - 1 ) . ') / ' . $i . ');
 }';
 
@@ -148,27 +154,27 @@ function update_option_columns( $old_value, $value, $option ) {
 
 @media ( max-width: ' . $options['tablet'] . 'px ) {
 	.columns.columns-5 > *
-	' . ( $options['gallery'] ? ', .gallery.gallery-columns-5 figure.gallery-item' : '' ) . ',
+	' . ( $options['gallery'] ? ', .gallery.gallery-columns-5 .gallery-item' : '' ) . ',
 	.columns.columns-6 > *
-	' . ( $options['gallery'] ? ', .gallery.gallery-columns-6 figure.gallery-item' : '' ) . ',
+	' . ( $options['gallery'] ? ', .gallery.gallery-columns-6 .gallery-item' : '' ) . ',
 	.columns.columns-7 > *:nth-child(n+5)
-	' . ( $options['gallery'] ? ', .gallery.gallery-columns-7 figure.gallery-item:nth-child(n+5)' : '' ) . ',
+	' . ( $options['gallery'] ? ', .gallery.gallery-columns-7 .gallery-item:nth-child(n+5)' : '' ) . ',
 	.columns.columns-9 > *
-	' . ( $options['gallery'] ? ', .gallery.gallery-columns-9 figure.gallery-item' : '' ) . ' {
+	' . ( $options['gallery'] ? ', .gallery.gallery-columns-9 .gallery-item' : '' ) . ' {
 		width: calc(33.33333% - ' . $options['gap'] . ' * 2 / 3);
 	}
 
 	.columns.columns-2 > .column-narrow,
 	.columns.columns-2 > .column-wide,
 	.columns.columns-5 > *:nth-child(n+4)
-	' . ( $options['gallery'] ? ', .gallery.gallery-columns-5 figure.gallery-item:nth-child(n+4)' : '' ) . ' {
+	' . ( $options['gallery'] ? ', .gallery.gallery-columns-5 .gallery-item:nth-child(n+4)' : '' ) . ' {
 		width: calc(50% - ' . $options['gap'] . ' / 2);
 	}
 
 	.columns.columns-7 > *
-	' . ( $options['gallery'] ? ', .gallery.gallery-columns-7 figure.gallery-item' : '' ) . ',
+	' . ( $options['gallery'] ? ', .gallery.gallery-columns-7 .gallery-item' : '' ) . ',
 	.columns.columns-8 > *
-	' . ( $options['gallery'] ? ', .gallery.gallery-columns-8 figure.gallery-item' : '' ) . ' {
+	' . ( $options['gallery'] ? ', .gallery.gallery-columns-8 .gallery-item' : '' ) . ' {
 		width: calc(25% - ' . $options['gap'] . ' * 3 / 4);
 	}
 }';
