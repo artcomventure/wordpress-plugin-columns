@@ -74,6 +74,11 @@ Don't hesitate! [Issues](https://github.com/artcomventure/wordpress-plugin-colum
 
 == Changelog ==
 
+= 1.7.2 - 2017-09-26 =
+**Fixed**
+
+* Don't strip units if value is 0 on css minification.
+
 = 1.7.1 - 2017-06-19 =
 **Fixed**
 

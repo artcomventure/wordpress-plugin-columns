@@ -106,6 +106,12 @@ function update_option_columns( $old_value, $value, $option ) {
     justify-content: space-between;
 }
 
+ul.columns {
+	list-style: none;
+	margin-left: 0;
+	padding-left: 0;
+}
+
 .columns > br
 ' . ( $options['gallery'] ? ', .gallery > br' : '' ) . ' {
 	display: none;
@@ -221,7 +227,7 @@ function update_option_columns( $old_value, $value, $option ) {
 			// strips leading 0 on decimal values (converts 0.5px into .5px)
 			$css = preg_replace( '/(:| )0\.([0-9]+)(%|em|ex|px|in|cm|mm|pt|pc)/i', '${1}.${2}${3}', $css );
 			// strips units if value is 0 (converts 0px to 0)
-			$css = preg_replace( '/(:| )(\.?)0(%|em|ex|px|in|cm|mm|pt|pc)/i', '${1}0', $css );
+//			$css = preg_replace( '/(:| )(\.?)0(%|em|ex|px|in|cm|mm|pt|pc)/i', '${1}0', $css );
 			// converts all zeros value into short-hand
 			$css = preg_replace( '/0 0 0 0/', '0', $css );
 			// shortern 6-character hex color codes to 3-character where possible
