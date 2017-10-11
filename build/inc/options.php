@@ -120,6 +120,7 @@ ul.columns {
 .columns > *
 ' . ( $options['gallery'] ? ', .gallery .gallery-item' : '' ) . ' {
     margin-bottom: ' . $options['gap'] . ';
+    margin-left: ' . $options['gap'] . ';
     padding: 0;
 }
 
@@ -139,6 +140,11 @@ ul.columns {
 .columns-' . $i . ' > *
 ' . ( $options['gallery'] ? ', .gallery-columns-' . $i . ' .gallery-item' : '' ) . ' {
     width: calc((100% - ' . $options['gap'] . ' * ' . ( $i - 1 ) . ') / ' . $i . ');
+}
+
+.columns-' . $i . ' > *:nth-child(' . $i . 'n+1)
+' . ( $options['gallery'] ? ', .gallery-columns-' . $i . ' .gallery-item:nth-child(' . $i . 'n+1)' : '' ) . ' {
+    margin-left: 0;
 }';
 
 		if ( $i == 2 ) {
@@ -163,8 +169,12 @@ ul.columns {
 	' . ( $options['gallery'] ? ', .gallery.gallery-columns-5 .gallery-item' : '' ) . ',
 	.columns.columns-6 > *
 	' . ( $options['gallery'] ? ', .gallery.gallery-columns-6 .gallery-item' : '' ) . ',
-	.columns.columns-7 > *:nth-child(n+5)
-	' . ( $options['gallery'] ? ', .gallery.gallery-columns-7 .gallery-item:nth-child(n+5)' : '' ) . ',
+	.columns.columns-7 > *:nth-child(7n+5)
+	' . ( $options['gallery'] ? ', .gallery.gallery-columns-7 .gallery-item:nth-child(7n+5)' : '' ) . ',
+	.columns.columns-7 > *:nth-child(7n+6)
+	' . ( $options['gallery'] ? ', .gallery.gallery-columns-7 .gallery-item:nth-child(7n+6)' : '' ) . ',
+	.columns.columns-7 > *:nth-child(7n+7)
+	' . ( $options['gallery'] ? ', .gallery.gallery-columns-7 .gallery-item:nth-child(7n+7)' : '' ) . ',
 	.columns.columns-9 > *
 	' . ( $options['gallery'] ? ', .gallery.gallery-columns-9 .gallery-item' : '' ) . ' {
 		width: calc(33.33333% - ' . $options['gap'] . ' * 2 / 3);
@@ -173,7 +183,8 @@ ul.columns {
 	.columns.columns-2 > .column-narrow,
 	.columns.columns-2 > .column-wide,
 	.columns.columns-4 > *,
-	.columns.columns-5 > *:nth-child(n+4)
+	.columns.columns-5 > *:nth-child(5n+4),
+	.columns.columns-5 > *:nth-child(5n+5)
 	' . ( $options['gallery'] ? ', .gallery.gallery-columns-5 .gallery-item:nth-child(n+4)' : '' ) . ' {
 		width: calc(50% - ' . $options['gap'] . ' / 2);
 	}
@@ -183,6 +194,21 @@ ul.columns {
 	.columns.columns-8 > *
 	' . ( $options['gallery'] ? ', .gallery.gallery-columns-8 .gallery-item' : '' ) . ' {
 		width: calc(25% - ' . $options['gap'] . ' * 3 / 4);
+	}
+
+	.columns.columns-4 > *:nth-child(2n+1)
+	' . ( $options['gallery'] ? ', .gallery.gallery-columns-4 .gallery-item:nth-child(2n+1)' : '' ) . ',
+	.columns.columns-5 > *:nth-child(5n+4)
+	' . ( $options['gallery'] ? ', .gallery.gallery-columns-5 .gallery-item:nth-child(5n+4)' : '' ) . ',
+	.columns.columns-6 > *:nth-child(3n+1)
+	' . ( $options['gallery'] ? ', .gallery.gallery-columns-6 .gallery-item:nth-child(3n+1)' : '' ) . ',
+	.columns.columns-7 > *:nth-child(7n+5)
+	' . ( $options['gallery'] ? ', .gallery.gallery-columns-7 .gallery-item:nth-child(7n+5)' : '' ) . ',
+	.columns.columns-8 > *:nth-child(4n+1)
+	' . ( $options['gallery'] ? ', .gallery.gallery-columns-8 .gallery-item:nth-child(4n+1)' : '' ) . ',
+	.columns.columns-9 > *:nth-child(3n+1)
+	' . ( $options['gallery'] ? ', .gallery.gallery-columns-9 .gallery-item:nth-child(3n+1)' : '' ) . ' {
+	    margin-left: 0;
 	}
 }';
 
@@ -199,6 +225,7 @@ ul.columns {
 	.columns[class*="columns-"] > *
 	' . ( $options['gallery'] ? ', .gallery[class*="gallery-columns-"]' : '' ) . ' {
 		width: 100% !important;
+		margin-left: 0 !important;
 	}
 }';
 	}
