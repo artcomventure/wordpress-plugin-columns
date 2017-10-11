@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.7.3 - 2017-09-29
+**Added**
+
+* intermediate styles
+* css for left justify columns
+
 ## 1.7.2 - 2017-09-26
 **Fixed**
 

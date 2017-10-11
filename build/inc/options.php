@@ -172,6 +172,7 @@ ul.columns {
 
 	.columns.columns-2 > .column-narrow,
 	.columns.columns-2 > .column-wide,
+	.columns.columns-4 > *,
 	.columns.columns-5 > *:nth-child(n+4)
 	' . ( $options['gallery'] ? ', .gallery.gallery-columns-5 .gallery-item:nth-child(n+4)' : '' ) . ' {
 		width: calc(50% - ' . $options['gap'] . ' / 2);
