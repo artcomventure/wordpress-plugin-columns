@@ -74,6 +74,15 @@ Don't hesitate! [Issues](https://github.com/artcomventure/wordpress-plugin-colum
 
 == Changelog ==
 
+= 1.7.4 - 2017-10-12 =
+**Added**
+
+* Protect div.column from being removed on delete keys press.
+
+**Changed**
+
+* No backend js/css file minification.
+
 = 1.7.3 - 2017-09-29 =
 **Added**
 

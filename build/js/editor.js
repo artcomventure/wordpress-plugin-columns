@@ -3,6 +3,23 @@
     tinymce.PluginManager.add( 'columns', function ( editor ) {
         tinymce.PluginManager.requireLangPack( 'columns', 'de_DE' );
 
+        // protect div.column from being removed
+        // on delete keys press
+        editor.on( 'keydown', function( e ) {
+            var range = editor.selection.getRng();
+
+            if ( [8, 46].indexOf( e.keyCode) >= 0 ) {
+                if ( ( !!range.commonAncestorContainer.className && range.commonAncestorContainer.className.indexOf( 'column' ) >= 0 )
+                    || ( !range.startOffset && range.endContainer.parentElement.className.indexOf( 'column' ) >= 0 )
+                ) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    return false;
+                }
+            }
+        } );
+
         editor.addButton( 'columns', {
             type: 'panelbutton',
             tooltip: editor.getLang( 'columns.Columns' ),

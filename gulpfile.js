@@ -3,14 +3,8 @@ var gulp = require( 'gulp' ),
     // gulp plugins
 
     sass = require( 'gulp-sass' ),
-    sourcemaps = require( 'gulp-sourcemaps' ),
     // css vendor prefixes
     autoprefixer = require( 'gulp-autoprefixer' ),
-    rename = require( 'gulp-rename' ),
-    // minimize css
-    cssnano = require( 'gulp-cssnano' ),
-    // uglify (and minimize) js
-    uglify = require( 'gulp-uglify' ),
     // beautify css
     csscomb = require( 'gulp-csscomb' ),
     replace = require( 'gulp-replace' ),
@@ -37,21 +31,6 @@ var gulp = require( 'gulp' ),
     // all our scss files
     scssFiles = [
         'css/**/*.scss'
-    ],
-
-    // all our css files
-    cssFiles = [
-        'css/**/*.css',
-        // ... but columns.css and already minimized ones
-        '!**/columns.css',
-        '!**/*.min.css'
-    ],
-
-    // all our js files
-    jsFiles = [
-        'js/**/*.js',
-        // ... but already minimized ones
-        '!**/*.min.js'
     ];
 
 /**
@@ -60,7 +39,6 @@ var gulp = require( 'gulp' ),
 gulp.task( 'scss', function() {
     return gulp.src( scssFiles, { base: 'wp-content' } )
         .pipe( plumber( { errorHandler: onError } ) )
-        .pipe( sourcemaps.init() )
         // scss to css
         .pipe( sass() )
         // vendor prefixes
@@ -74,34 +52,6 @@ gulp.task( 'scss', function() {
         .pipe( replace( /}\n(\.|#|\w|\s*\d)/g, "}\n\n$1" ) )
         // ... remove blank lines in instruction
         .pipe( replace( /;\s*\n(\s*\n)+/g, ";\n" ) )
-        // write sourcemap
-        .pipe( sourcemaps.write( '.' ) )
-        .pipe( gulp.dest( 'wp-content' ) );
-} );
-
-/**
- * Compress css files.
- */
-gulp.task( 'css', ['scss'], function() {
-    return gulp.src( cssFiles, { base: 'wp-content' } )
-        .pipe( plumber( { errorHandler: onError } ) )
-        // rename to FILENAME.min.css
-        .pipe( rename( { suffix: '.min' } ) )
-        // minimize css
-        .pipe( cssnano() )
-        .pipe( gulp.dest( 'wp-content' ) );
-} );
-
-/**
- * Compress and uglify js files.
- */
-gulp.task( 'js', function() {
-    return gulp.src( jsFiles, { base: 'wp-content' } )
-        .pipe( plumber( { errorHandler: onError } ) )
-        // rename to FILENAME.min.js
-        .pipe( rename( { suffix: '.min' } ) )
-        // uglify and compress
-        .pipe( uglify() )
         .pipe( gulp.dest( 'wp-content' ) );
 } );
 
@@ -112,13 +62,12 @@ gulp.task( 'clear:build', function() {
     del.sync( 'build/**/*' );
 } );
 
-gulp.task( 'build', ['clear:build', 'css', 'js'], function() {
+gulp.task( 'build', ['clear:build', 'scss'], function() {
     // collect all needed files
     gulp.src( [
         '**/*',
         // ... but:
         '!**/*.scss',
-        '!**/*.css.map',
         '!**/*.css', // will be collected see next function
         '!*.md',
         '!LICENSE',
@@ -134,8 +83,6 @@ gulp.task( 'build', ['clear:build', 'css', 'js'], function() {
 
     // collect css files
     gulp.src( [ '**/*.css', '!css/columns.css', '!css/columns.min.css' ,'!node_modules{,/**}' ] )
-        // ... and remove '/*# sourceMappingURL=FILENAME.css.map */'
-        .pipe( replace( /\n*\/\*# sourceMappingURL=.*\.css\.map \*\/\n*$/g, '' ) )
         .pipe( gulp.dest( 'build/' ) );
 
     // concat files for WP's readme.txt
@@ -159,7 +106,6 @@ gulp.task( 'build', ['clear:build', 'css', 'js'], function() {
  *
  * Init watches by calling 'gulp' in terminal.
  */
-gulp.task( 'default', function() {
-    gulp.watch( scssFiles, ['css'] );
-    gulp.watch( jsFiles, ['js'] );
+gulp.task( 'default', ['scss'], function() {
+    gulp.watch( scssFiles, ['scss'] );
 } );
