@@ -74,6 +74,11 @@ Don't hesitate! [Issues](https://github.com/artcomventure/wordpress-plugin-colum
 
 == Changelog ==
 
+= 1.7.5 - 2017-10-16 =
+**Fixed**
+
+* Let empty paragraph be removed from div.columns if not the only child.
+
 = 1.7.4 - 2017-10-12 =
 **Added**
 
