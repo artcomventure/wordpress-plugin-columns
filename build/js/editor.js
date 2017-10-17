@@ -10,7 +10,9 @@
 
             if ( [8, 46].indexOf( e.keyCode) >= 0 ) {
                 if ( ( !!range.commonAncestorContainer.className && range.commonAncestorContainer.className.indexOf( 'column' ) >= 0 )
-                    || ( !range.startOffset && range.endContainer.parentElement.children.length == 1 && range.endContainer.parentElement.className.indexOf( 'column' ) >= 0 )
+                    || ( !range.startOffset && Array.prototype.slice.call( range.endContainer.parentElement.children, 0 ).filter( function( $child ) {
+                        return $child.className.indexOf( 'add-paragraph' );
+                    } ).length == 1 && range.endContainer.parentElement.className.indexOf( 'column' ) >= 0 )
                 ) {
                     e.preventDefault();
                     e.stopPropagation();
