@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.7.6 - 2018-01-11
+**Fixed**
+
+* Column's box-sizing (CSS).
+
 ## 1.7.5 - 2017-10-16
 **Fixed**
 

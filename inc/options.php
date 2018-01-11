@@ -122,6 +122,7 @@ ul.columns {
     margin-bottom: ' . $options['gap'] . ';
     margin-left: ' . $options['gap'] . ';
     padding: 0;
+    box-sizing: border-box;
 }
 
 .columns > * > *:first-child
