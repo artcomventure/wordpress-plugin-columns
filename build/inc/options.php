@@ -224,9 +224,10 @@ ul.columns {
 	}
 
 	.columns[class*="columns-"] > *
-	' . ( $options['gallery'] ? ', .gallery[class*="gallery-columns-"]' : '' ) . ' {
+	' . ( $options['gallery'] ? ', .gallery[class*="gallery-columns-"] .gallery-item' : '' ) . ' {
 		width: 100% !important;
 		margin-left: 0 !important;
+		max-width: none;
 	}
 }';
 	}

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.7.7 - 2019-10-16
+**Fixed**
+
+* Gallery override CSS.
+
 ## 1.7.6 - 2018-01-11
 **Fixed**
 
