@@ -3,10 +3,6 @@
     position: relative;
 }
 
-.columns > * {
-    background: rgba(0, 0, 0, .025);
-}
-
 .columns.focused-columns,
 .columns:hover {
     background: rgba(0, 0, 0, .025);

@@ -1,10 +1,10 @@
 .columns {
   position: relative;
 
-  > * {
-    //outline: 1px dotted rgba(#000, .1);
-    background: rgba(#000, .025);
-  }
+  //> * {
+  //  outline: 1px dotted rgba(#000, .1);
+  //  background: rgba(#000, .025);
+  //}
 
   &.focused-columns,
   &:hover {

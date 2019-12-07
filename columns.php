@@ -18,6 +18,14 @@ if ( ! defined( 'COLUMNS_PLUGIN_DIR' ) ) {
 	define( 'COLUMNS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 }
 
+function columns_version() {
+	if ( !function_exists('get_plugin_data' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+	}
+
+	return get_plugin_data( __FILE__ )['Version'];
+}
+
 /**
  * Check if columns.css exists
  * ... and create it in case it doesn't.
@@ -65,12 +73,12 @@ function columns__admin_head() {
 
 	// add styles to editor
 	if ( file_exists( COLUMNS_PLUGIN_DIR . 'css/columns.min.css' ) ) {
-		add_editor_style( plugins_url( '/css/columns.min.css?', __FILE__ ) );
+		add_editor_style( plugins_url( '/css/columns.min.css?ver=' . columns_version(), __FILE__ ) );
 	}
-	add_editor_style( plugins_url( '/css/editor.css?', __FILE__ ) );
+	add_editor_style( plugins_url( '/css/editor.css?ver=' . columns_version(), __FILE__ ) );
 
 	// enqueue button style
-	wp_enqueue_style( 'columns-admin', COLUMNS_PLUGIN_URL . 'css/editor.css', array(), '20170321' );
+	wp_enqueue_style( 'columns-admin', COLUMNS_PLUGIN_URL . 'css/editor.css', array(), columns_version() );
 
 	// add plugin js
 	wp_register_script( 'columns-variables', COLUMNS_PLUGIN_URL . 'js/variables.js' );
