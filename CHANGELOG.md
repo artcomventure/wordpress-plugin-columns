@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.7.8 - 2019-12-07
+**Changed**
+
+* Add-paragraph UI (not likely to interfere with CSS anymore).
+
 ## 1.7.7 - 2019-10-16
 **Fixed**
 

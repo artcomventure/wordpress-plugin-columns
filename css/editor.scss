@@ -1,47 +1,40 @@
 .columns {
   position: relative;
-  outline: 1px dotted rgba(#000, .1);
 
-  &:hover > * {
-    background: rgba(#000,.05);
-
-    &:first-child > *:nth-child(2) {
-      margin-top: 0;
-    }
-
-    &:last-child > *:nth-last-child(2) {
-      margin-bottom: 0;
-    }
+  > * {
+    //outline: 1px dotted rgba(#000, .1);
+    background: rgba(#000, .025);
   }
 
-  .add-paragraph {
-    position: absolute;
-    z-index: 1;
-    left: 50%;
-    font-size: .8em;
-    width: 1.5em;
-    height: 1.5em;
-    line-height: 1.5em;
-    text-align: center;
-    background-color: #fff;
-    border-radius: 2px;
-    cursor: pointer;
-    border: 1px dotted;
+  &.focused-columns,
+  &:hover {
+    background: rgba(#000, .025);
 
-    &:before {
-      position: relative;
-      content: "¶";
+    > * {
+      background: rgba(#000, .05);
     }
+  }
+}
 
-    &:first-child {
-      top: 0;
-      transform: translate(-50%,-50%);
-    }
+.add-paragraph {
+  font-family: Arial, sans-serif;
+  position: absolute;
+  z-index: 999;
+  left: 50%;
+  width: 15px;
+  height: 15px;
+  line-height: 10px;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 2px;
+  cursor: pointer;
+  border: 1px dotted;
+  transform: translate(-50%, -50%);
 
-    &:last-child {
-      bottom: 0;
-      transform: translate(-50%,50%);
-    }
+  &:before {
+    position: relative;
+    content: "¶";
+    font-size: 10px;
   }
 }
 

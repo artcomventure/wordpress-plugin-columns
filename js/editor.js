@@ -183,31 +183,53 @@
                     var body = editor.dom.getParent( editor.selection.getNode(), 'body' );
 
                     // add/remove paragraph button
-                    $( body ).on( 'mouseenter mouseleave', 'div.columns', function ( e ) {
+                    $( body ).on( 'click', 'div.columns', function ( e ) {
+                        e.stopImmediatePropagation();
+
+                        $( body ).find( 'div.add-paragraph' ).remove();
+
                         // get column set
                         var $columnset = $( e.target );
                         if ( !$columnset.is( '.columns' ) ) $columnset = $columnset.closest( 'div.columns' );
+                        if ( !$columnset.length ) return;
 
-                        // paragraph buttons ~
-                        // ~ remove
-                        if ( e.type == 'mouseleave' ) $columnset.find( 'span.add-paragraph' ).remove();
-                        // ~ add
-                        else {
-                            var $addParagraph = $( '<span class="add-paragraph" />' );
-                            $addParagraph.attr( 'title', editor.getLang( 'columns.AddParagraph' ) )
+                        $columnset.addClass( 'focused-columns' );
+
+                        var $addParagraphTop, $addParagraphBottom,
+                            $addParagraph = $( '<div class="add-paragraph" />' )
+                                .attr( 'title', editor.getLang( 'columns.AddParagraph' ) )
                                 .on( 'click', function () {
                                     // define position where to add paragraph
                                     var where = 'after';
-                                    if ( $( this ).is( ':first-child' ) ) where = 'before';
+                                    if ( $( this ).next().is( $columnset ) ) where = 'before';
 
                                     // eventually add empty paragraph
                                     $columnset[where]( '<p>&nbsp;</p>' );
                                 } );
 
-                            // eventually add to html
-                            $columnset.find( 'div.column:first-child' ).prepend( $addParagraph );
-                            $columnset.find( 'div.column:last-child' ).append( $addParagraph.clone( true ) );
-                        }
+                        // eventually add to html
+                        $columnset.before( $addParagraphTop = $addParagraph.clone( true ) );
+                        $columnset.after( $addParagraphBottom = $addParagraph.clone( true ) );
+
+                        // keep 'add paragraphs' on columns edge
+                        var positionAddParagraphs = setInterval( function() {
+                            // columns aren't selected/focused anymore
+                            if ( !$columnset.next().is( $addParagraphBottom ) )
+                                return clearInterval( positionAddParagraphs );
+
+                            $addParagraphTop.css( {
+                                top: ~~$columnset.offset().top + 'px',
+                                left: ~~$columnset.offset().left + $columnset.width()/2 + 'px'
+                            } );
+
+                            $addParagraphBottom.css( {
+                                top: ~~$columnset.offset().top + $columnset.height() + 'px',
+                                left: ~~$columnset.offset().left + $columnset.width()/2 + 'px'
+                            } );
+                        }, 10 );
+                    } ).on( 'click mouseleave', function() {
+                        $(this).find( 'div.add-paragraph' ).remove();
+                        $(this).closest( 'body' ).find( 'div.columns' ).removeClass( 'focused-columns' );
                     } );
                 } );
 
@@ -216,9 +238,6 @@
 
                 for ( var i = 0; i < events.length; i++ ) {
                     editor.on( events[i], function ( e ) {
-                        // editor body
-                        var body = editor.dom.getParent( editor.selection.getNode(), 'body' );
-
                         // get current columnset
                         var columns = editor.dom.getParent( editor.selection.getNode(), '.columns' );
                         columnsButton.active( !!columns );
