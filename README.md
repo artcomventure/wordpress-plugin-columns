@@ -1,5 +1,10 @@
 # WordPress HTML Editor Columns
 
+> :warning: Columns are supported within the _new_ block editor (aka [Gutenberg](https://wordpress.org/gutenberg/) since [WordPress 5.0](https://wordpress.org/support/wordpress-version/version-5-0/)).
+> This plugin will *do its duty* till WP 4.9 or with the [Classic Editor](https://wordpress.org/plugins/classic-editor/) enabled ... **but will no longer be maintained.**
+> 
+> Thanks for the great journey. RIP ;(
+
 Extends the WordPress HTML editor with columns ... **_the WYSIWYG way_**.
 
 Insert multiple column sets with up to 9 columns directly into the HTML editor.
